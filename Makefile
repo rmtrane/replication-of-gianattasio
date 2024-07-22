@@ -2,7 +2,18 @@
 adamsDirs := data/HRS-unzips/adams1a data/HRS-unzips/adams1b data/HRS-unzips/adams1trk
 hDirs := data/HRS-unzips/h98 data/HRS-unzips/h00 data/HRS-unzips/h02 data/HRS-unzips/h04 data/HRS-unzips/h06 data/HRS-unzips/h08 data/HRS-unzips/h10
 
-all: unzip_all $(adamsDirs)/new_sas data/HRS-unzips/rand/formats.sas7bcat $(hDirs)/new_sas
+all: unzip_all $(adamsDirs)/new_sas data/SAS/rand/formats.sas7bcat update_all_sas run_all_sas
+
+update_all_sas: data/HRS-unzips/adams1a/new_sas data/HRS-unzips/adams1b/new_sas data/HRS-unzips/adams1trk/new_sas \
+	data/HRS-unzips/h98/new_sas \
+	data/HRS-unzips/h00/new_sas \
+	data/HRS-unzips/h02/new_sas \
+	data/HRS-unzips/h04/new_sas \
+	data/HRS-unzips/h06/new_sas \
+	data/HRS-unzips/h08/new_sas \
+	data/HRS-unzips/h10/new_sas
+
+run_all_sas: data/SAS/adams1a data/SAS/adams1b data/SAS/adams1trk data/SAS/HRS
 
 # Check if specific zip is present
 data/HRS-zips/%.zip: 
@@ -47,8 +58,8 @@ data/HRS-unzips/h%/new_sas: data/HRS-unzips/h%
 	bash scripts/bash/update_hrs_sas_files.sh -d $(abspath $@)
 
 # Run updated SAS files to create new sas datasets
-data/SAS/HRS/%.sas7bdat: 
-	bash scripts/bash/run_HRS_sas_file.sh -o $(notdir $@)
+data/SAS/HRS:
+	bash scripts/bash/run_HRS_sas_file.sh
 
 data/SAS/adams1%: 
 	bash scripts/bash/run_adams_sas.sh $(notdir $@)
