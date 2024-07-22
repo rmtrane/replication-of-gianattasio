@@ -2,7 +2,7 @@
 adamsDirs := data/HRS-unzips/adams1a data/HRS-unzips/adams1b data/HRS-unzips/adams1trk
 hDirs := data/HRS-unzips/h98 data/HRS-unzips/h00 data/HRS-unzips/h02 data/HRS-unzips/h04 data/HRS-unzips/h06 data/HRS-unzips/h08 data/HRS-unzips/h10
 
-all: unzip_all $(adamsDirs)/new_sas data/HRS-unzips/rand/formats.sas7bcat $(hDirs)/
+all: unzip_all $(adamsDirs)/new_sas data/HRS-unzips/rand/formats.sas7bcat $(hDirs)/new_sas
 
 # Check if specific zip is present
 data/HRS-zips/%.zip: 
@@ -16,7 +16,7 @@ check_all_zips:
 unzip_all: check_all_zips
 	$(MAKE) $(adamsDirs)
 	$(MAKE) $(hDirs)
-	$(MAKE) data/HRS-unzips/rand
+	$(MAKE) data/SAS/rand
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%: data/HRS-zips/adams1%.zip
@@ -36,7 +36,7 @@ data/SAS/rand: data/HRS-zips/randhrsp_archive_SAS.zip
 
 # Create updated SAS files for ADAMS
 data/HRS-unzips/adams1%/new_sas: # data/HRS-unzips/adams1
-	bash scripts/bash/update_adams_sas_files.sh -d $@
+	bash scripts/bash/update_adams_sas_files.sh -d $(abspath $@)
 
 # Create formats for RAND file
 data/SAS/rand/formats.sas7bcat: data/SAS/rand
@@ -44,7 +44,7 @@ data/SAS/rand/formats.sas7bcat: data/SAS/rand
 
 # Create updated SAS files for h%%
 data/HRS-unzips/h%/new_sas: data/HRS-unzips/h%
-	bash scripts/bash/update_hrs_sas_files.sh -d $@
+	bash scripts/bash/update_hrs_sas_files.sh -d $(abspath $@)
 
 # Run updated SAS files to create new sas datasets
 data/SAS/HRS/%.sas7bdat: 
@@ -52,7 +52,6 @@ data/SAS/HRS/%.sas7bdat:
 
 data/SAS/adams1%: 
 	bash scripts/bash/run_adams_sas.sh $(notdir $@)
-
 
 # Clean/reset. I.e. remove everything created by this Makefile
 clean:

@@ -41,7 +41,7 @@ do
     cp scripts/SAS/newAdamsSASScripts.sas $newsasfile
 
     sed "s|INPUTFILE|${inputfile}|" $newsasfile > tmp_1.sas
-    sed "s|OUTPATH|`pwd`/data/SAS/${adams}|" tmp_1.sas > tmp_2.sas
+    sed "s|OUTPATH|`pwd`/data/SAS/ADAMS|" tmp_1.sas > tmp_2.sas
     sed "s|FILENAME|${sasfilename}|" tmp_2.sas > $newsasfile
 
     rm tmp_*.sas
