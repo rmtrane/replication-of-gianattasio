@@ -25,9 +25,13 @@ check_all_zips:
 
 # Unzip everything
 unzip_all: check_all_zips
+ifdef password
 	$(MAKE) $(adamsDirs)
 	$(MAKE) $(hDirs)
 	$(MAKE) data/SAS/rand
+else
+	@echo "Password not set"
+endif
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%: data/HRS-zips/adams1%.zip
@@ -59,7 +63,7 @@ data/HRS-unzips/h%/new_sas: data/HRS-unzips/h%
 
 # Run updated SAS files to create new sas datasets
 data/SAS/HRS:
-	bash scripts/bash/run_HRS_sas_file.sh
+	bash scripts/bash/run_hrs_sas_file.sh
 
 data/SAS/adams1%: 
 	bash scripts/bash/run_adams_sas.sh $(notdir $@)
