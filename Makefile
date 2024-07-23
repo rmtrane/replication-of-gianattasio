@@ -2,7 +2,7 @@
 adamsDirs := data/HRS-unzips/adams1a data/HRS-unzips/adams1b data/HRS-unzips/adams1trk
 hDirs := data/HRS-unzips/h98 data/HRS-unzips/h00 data/HRS-unzips/h02 data/HRS-unzips/h04 data/HRS-unzips/h06 data/HRS-unzips/h08 data/HRS-unzips/h10
 
-all: unzip_all $(adamsDirs)/new_sas data/SAS/rand/formats.sas7bcat update_all_sas run_all_sas
+all: unzip_all data/SAS/rand/formats.sas7bcat update_all_sas run_all_sas
 
 update_all_sas: data/HRS-unzips/adams1a/new_sas data/HRS-unzips/adams1b/new_sas data/HRS-unzips/adams1trk/new_sas \
 	data/HRS-unzips/h98/new_sas \

@@ -18,5 +18,5 @@ filename=${basename%.*}
 mkdir -p data/HRS-unzips/$filename
 
 # Unzip h%%da.zip and h%%sas.zip
-unzip "$file"da.zip -d data/HRS-unzips/"$filename"/"$filename"da
-unzip "$file"sas.zip -d data/HRS-unzips/"$filename"/"$filename"sas
+unzip "$file"da.zip -d data/HRS-unzips/"$filename"/da
+unzip "$file"sas.zip -d data/HRS-unzips/"$filename"/sas

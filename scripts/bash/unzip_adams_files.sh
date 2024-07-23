@@ -47,8 +47,8 @@ else
 fi
 
 # Unzip nested zip folder with SAS scripts
-unzip data/HRS-unzips/"$filename"/"$filename"sas.zip -d data/HRS-unzips/"$filename"/"$filename"sas
+unzip data/HRS-unzips/"$filename"/"$filename"sas.zip -d data/HRS-unzips/"$filename"/sas
 
 # Unzip nested zip folder with data files
-unzip data/HRS-unzips/"$filename"/"$filename"da.zip -d data/HRS-unzips/"$filename"/"$filename"da
+unzip data/HRS-unzips/"$filename"/"$filename"da.zip -d data/HRS-unzips/"$filename"/da
 

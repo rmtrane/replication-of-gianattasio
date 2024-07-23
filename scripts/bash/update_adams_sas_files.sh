@@ -21,7 +21,7 @@ dirpath=`dirname $folder`
 adams=${dirpath##*/}
 
 # Create new SAS script
-find $dirpath/"$adams"sas -iname "*.sas" | while read f
+find $dirpath/sas -iname "*.sas" | while read f
 do
     absolutefilename=`readlink -f $f`
     # pathtofolder=`dirname $absolutefilename`
@@ -34,7 +34,7 @@ do
     INPUTLINE=`grep -n "^INPUT" -i $f | cut -d : -f1`
 
 
-    inputfile="$dirpath"/"$adams"da/"$sasfilename".da
+    inputfile="$dirpath"/da/"$sasfilename".da
     newsasfile="$dirpath"/new_sas/"$sasfilename".sas
 
     
