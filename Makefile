@@ -64,13 +64,18 @@ data/HRS-unzips/h%/new_sas: data/HRS-unzips/h%
 # Run updated SAS files to create new sas datasets
 data/SAS/HRS:
 	bash scripts/bash/run_hrs_sas_file.sh
-
 data/SAS/adams1%: 
 	bash scripts/bash/run_adams_sas.sh $(notdir $@)
+
+# Download AD Algorithm Comparison repo and checkout commit known to work (probably not needed, but in case orig author makes future chances)
+AD_algorithm_comparison:
+	git clone git@github.com:powerepilab/AD_algorithm_comparison.git AD_algorithm_comparison
+	cd AD_algorithm_comparison; git reset --hard 1338e71
 
 # Clean/reset. I.e. remove everything created by this Makefile
 clean:
 	rm -rf data/{SAS,HRS-unzips}
 	rm -rf logs
+	rm -rf AD_algorithm_comparison
 
 

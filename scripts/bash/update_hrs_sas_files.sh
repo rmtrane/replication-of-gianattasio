@@ -32,7 +32,6 @@ do
     # Then we find the line number where the INPUT part of the SAS script starts.
     INPUTLINE=`grep -n "^INPUT" -i $f | cut -d : -f1`
 
-
     inputfile="$dirpath"/da/"$sasfilename".da
     newsasfile="$dirpath"/new_sas/"$sasfilename".sas
 
