@@ -87,5 +87,5 @@ clean:
 	rm -rf data/{SAS,HRS-unzips}
 	rm -rf logs
 	rm -rf AD_algorithm_comparison
-	rm -rf updated_AD_algorithm_comparisons
+	rm -rf updated_AD_algorithm_comparison
 
