@@ -3,6 +3,11 @@
 .RData
 .Ruserdata
 
+*.*~
+
 AD_algorithm_comparison
+updated_AD_algorithm_comparison
+
+*.zip
 
 data/*

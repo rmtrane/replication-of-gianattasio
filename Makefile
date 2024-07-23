@@ -72,10 +72,18 @@ AD_algorithm_comparison:
 	git clone git@github.com:powerepilab/AD_algorithm_comparison.git AD_algorithm_comparison
 	cd AD_algorithm_comparison; git reset --hard 1338e71
 
+# Create updated_AD_algorithm_comparisons
+updated_AD_algorithm_comparison: AD_algorithm_comparison/*
+	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+
+# Create HRS training and validation data sets
+
+
+
 # Clean/reset. I.e. remove everything created by this Makefile
 clean:
 	rm -rf data/{SAS,HRS-unzips}
 	rm -rf logs
 	rm -rf AD_algorithm_comparison
-
+	rm -rf updated_AD_algorithm_comparisons
 
