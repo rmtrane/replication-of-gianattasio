@@ -52,3 +52,6 @@ unzip data/HRS-unzips/"$filename"/"$filename"sas.zip -d data/HRS-unzips/"$filena
 # Unzip nested zip folder with data files
 unzip data/HRS-unzips/"$filename"/"$filename"da.zip -d data/HRS-unzips/"$filename"/da
 
+# Make sure all file extensions are lower case
+find data/HRS-unzips/"$filename"/da -name '*.*' -exec sh -c 'a=$(echo "$0" | sed -r "s/([^.]*)\$/\L\1/"); [ "$a" != "$0" ] && mv "$0" "$a" ' {} \;
+find data/HRS-unzips/"$filename"/sas -name '*.*' -exec sh -c 'a=$(echo "$0" | sed -r "s/([^.]*)\$/\L\1/"); [ "$a" != "$0" ] && mv "$0" "$a" ' {} \;

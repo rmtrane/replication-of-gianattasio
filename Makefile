@@ -71,5 +71,6 @@ data/SAS/adams1%:
 # Clean/reset. I.e. remove everything created by this Makefile
 clean:
 	rm -rf data/{SAS,HRS-unzips}
+	rm -rf logs
 
 
