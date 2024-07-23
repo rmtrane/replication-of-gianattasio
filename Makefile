@@ -25,20 +25,16 @@ check_all_zips:
 
 # Unzip everything
 unzip_all: check_all_zips
-ifdef password
 	$(MAKE) $(adamsDirs)
 	$(MAKE) $(hDirs)
 	$(MAKE) data/SAS/rand
-else
-	@echo "Password not set"
-endif
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%: data/HRS-zips/adams1%.zip
 ifdef password
 	bash scripts/bash/unzip_adams_files.sh -f data/HRS-zips/`basename $@`.zip -p $(password)
 else
-	@echo "Password not set"
+	$(error Password not set!!!)
 endif
 
 # Unzip h* zip-files
