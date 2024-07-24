@@ -10,6 +10,6 @@ cat scripts/SAS/3_hurdprobinput.sas >> updated_AD_algorithm_comparison/3_tmp.sas
 
 tail -n +"$beginSecondPart" updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas >> updated_AD_algorithm_comparison/3_tmp.sas
 
-sed "s|ROOT|`pwd`|" updated_AD_algorithm_comparison/3_tmp.sas > 3_create_training_and_validation_datasets.sas
+sed "s|ROOT|`pwd`|" updated_AD_algorithm_comparison/3_tmp.sas > updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas
 
 rm updated_AD_algorithm_comparison/3_tmp.sas
