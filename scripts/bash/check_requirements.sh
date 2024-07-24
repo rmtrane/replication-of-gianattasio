@@ -74,6 +74,11 @@ else
 	fi
     done
 
+    # Check if Hurd Probabilities zip file is present
+    if [[ ! -f "`pwd`/data/HRS-zips/DementiaPredictedProbabilities.zip" ]]; then
+	missing+=("`pwd`/data/HRS-zips/DementiaPredictedProbabilities.zip")
+    fi
+
     # If any files not found, print, otherwise print message confirming everything found.
     if [[ ${#missing[@]} -gt 0 ]]; then
 	echo "The following files are missing:"

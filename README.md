@@ -4,6 +4,13 @@ Ralph Møller Trane
 ## Introduction
 
 This repo aims at replicating the results of Gianattasio et al. (2019).
+The greater idea behind this is a desire to implement the algorithms in
+R for future research purposes, but in a way that is consistent with
+what has previously been done. Therefore, we create this pipeline with
+instructions to
+
+1.  Download the needed files from the HRS website
+2.  
 
 ## Run
 
@@ -20,6 +27,7 @@ Create a formats file for RAND data.
 Update all sas files. This replaces file paths in the SAS files from the
 HRS and ADAMS SAS files downloaded from HRS website. The updated SAS
 files are placed in `data/HRS-unzips/{subdir}/new_sas` where `{subdir}`
+refers to the name of the .zip file that was unzipped.
 
     make update_all_sas
 

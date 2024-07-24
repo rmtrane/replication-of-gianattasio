@@ -9,7 +9,10 @@ bibliography: references.bib
 
 ## Introduction
 
-This repo aims at replicating the results of @gianattasioComparisonMethodsAlgorithmic2019.
+This repo aims at replicating the results of @gianattasioComparisonMethodsAlgorithmic2019. The greater idea behind this is a desire to implement the algorithms in R for future research purposes, but in a way that is consistent with what has previously been done. Therefore, we create this pipeline with instructions to 
+
+1. Download the needed files from the HRS website
+2. 
 
 ## Run
 
@@ -25,7 +28,7 @@ Create a formats file for RAND data.
 make data/SAS/rand/formats.sas7bcat
 ```
 
-Update all sas files. This replaces file paths in the SAS files from the HRS and ADAMS SAS files downloaded from HRS website. The updated SAS files are placed in `data/HRS-unzips/{subdir}/new_sas` where `{subdir}` 
+Update all sas files. This replaces file paths in the SAS files from the HRS and ADAMS SAS files downloaded from HRS website. The updated SAS files are placed in `data/HRS-unzips/{subdir}/new_sas` where `{subdir}` refers to the name of the .zip file that was unzipped.
 
 ```
 make update_all_sas
@@ -43,7 +46,7 @@ Now, we need to download the SAS scripts used by @gianattasioComparisonMethodsAl
 make AD_algorithm_comparison
 ```
 
-The filepaths in the just downloaded SAS scripts need to be updated as well.
+The filepaths in the just downloaded SAS scripts need to be updated as well. 
 
 ```
 make update_AD_algorithm_comparison
