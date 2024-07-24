@@ -83,13 +83,15 @@ updated_AD_algorithm_comparison:
 	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
 
 ## Create HRS training and validation data sets
-# First, 1a
-data/SAS/created/master_ad_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas
+# First, run 1b (which in turn calls 1a)
+data/SAS/created/master_ad_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas
 	mkdir -p logs/updated_AD_algorithm_comparison
-	sas updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas -log logs/updated_AD_algorithm_comparison/ # 1a_extract_self_response_variables.sas
+	sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas -log logs/updated_AD_algorithm_comparison/ # 1a_extract_self_response_variables.sas
 
-# Second, 1b
-
+# Second, run 2
+...: data/SAS/created/master_ad_2018_0117.sas7bdat updated_AD_algorithm_comparison/2_create_lags_etc.sas
+	mkdir -p logs/updated_AD_algorithm_comparison
+	sas updated_AD_algorithm_comparison/2_create_lags_etc.sas -log logs/updated_AD_algorithm_comparison/
 
 
 

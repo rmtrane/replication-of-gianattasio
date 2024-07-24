@@ -1,0 +1,8 @@
+name: copy-readme
+run-name: ${{ github.actor }} is copying README.md to root
+on: [push]
+jobs:
+  cp-README:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cp qmd-documents/README.md 

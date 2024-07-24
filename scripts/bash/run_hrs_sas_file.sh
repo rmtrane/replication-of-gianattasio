@@ -3,7 +3,7 @@
 mkdir -p data/SAS/HRS
 mkdir -p logs/HRS
 
-find data/HRS-unzips/h*/new_sas -iname "*.sas" | while read f
+find data/HRS-unzips/{a,h}*/new_sas -iname "*.sas" | while read f
 do
     filename=`basename ${f%.*}`
     
