@@ -4,9 +4,9 @@ hDirs := data/HRS-unzips/a95 data/HRS-unzips/h96 data/HRS-unzips/h98 data/HRS-un
 
 all: unzip_all \
 data/SAS/rand/formats.sas7bcat \
-data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
 update_all_sas \
 run_all_sas \
+data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
 AD_algorithm_comparison \
 updated_AD_algorithm_comparison \
 data/SAS/created/HRSt_2018_0302.sas7bdat
@@ -45,7 +45,7 @@ data/SAS/hurd: data/HRS-zips/DementiaPredictedProbabilities.zip
 	unzip -q data/HRS-zips/DementiaPredictedProbabilities.zip -d data/SAS/hurd
 
 # Create wide format hurd data
-data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd
+data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd data/SAS/HRS
 	Rscript -e "library(tidyr); haven::read_sas('data/SAS/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% haven::write_xpt('data/SAS/HRS/hurdprobabilities_wide.sas7bdat')"
 
 # Unzip ADAMS zip-files
