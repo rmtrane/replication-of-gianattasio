@@ -45,8 +45,9 @@ data/SAS/hurd: data/HRS-zips/DementiaPredictedProbabilities.zip
 	unzip -q data/HRS-zips/DementiaPredictedProbabilities.zip -d data/SAS/hurd
 
 # Create wide format hurd data
-data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd data/SAS/HRS
-	Rscript -e "library(tidyr); haven::read_sas('data/SAS/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% haven::write_xpt('data/SAS/HRS/hurdprobabilities_wide.sas7bdat')"
+data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd
+	mkdir -p data/SAS/created
+	Rscript -e "library(tidyr); haven::read_sas('data/SAS/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% haven::write_xpt('data/SAS/created/hurdprobabilities_wide.sas7bdat')"
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%: data/HRS-zips/adams1%.zip
@@ -112,7 +113,7 @@ data/SAS/created/master_ad_2018_0117.sas7bdat: data/SAS/created/master_2018_0117
 
 # Third, run 3
 data/SAS/created/master_adpred_wide_2018_0302.sas7bdat data/SAS/created/HRSt_2018_0302.sas7bdat data/SAS/created/HRSv_2018_0302.sas7bdat data/SAS/created/commsampfinal_key.sas7bdat: data/SAS/HRS/hurdprobabilities_wide.sas7bdat data/SAS/created/master_ad_2018_0117.sas7bdat
-	sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas
+	sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas -log logs/updated_AD_algorithm_comparison/
 
 # Clean/reset. I.e. remove everything created by this Makefile
 clean:
