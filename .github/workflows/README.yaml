@@ -5,4 +5,4 @@ jobs:
   cp-README:
     runs-on: ubuntu-latest
     steps:
-      - run: cp qmd-documents/README.md 
+      - run: cp qmd-documents/README.md .
