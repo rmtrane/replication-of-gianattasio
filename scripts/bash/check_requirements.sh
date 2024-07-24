@@ -49,19 +49,21 @@ else
 
     # Check for general HRS files
     declare -a hrsYears=(
-	"98"
-	"00"
-	"02"
-	"04"
-	"06"
-	"08"
-	"10"
+	"a95"
+	"h96"
+	"h98"
+	"h00"
+	"h02"
+	"h04"
+	"h06"
+	"h08"
+	"h10"
     )
 
     for year in "${hrsYears}";
     do
-	datafile=`pwd`/data/HRS-zips/h"$year"da.zip
-	sasfile=`pwd`/data/HRS-zips/h"$year"sas.zip
+	datafile=`pwd`/data/HRS-zips/"$year"da.zip
+	sasfile=`pwd`/data/HRS-zips/"$year"sas.zip
 	
 	if [[ ! -f $datafile ]]; then
 	    missing+=($datafile)
