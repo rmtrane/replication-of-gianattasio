@@ -4,7 +4,7 @@ hDirs := data/HRS-unzips/a95 data/HRS-unzips/h96 data/HRS-unzips/h98 data/HRS-un
 
 all: unzip_all \
 data/SAS/rand/formats.sas7bcat \
-data/SAS/hurd/hurdprobabilities_wide.sas7bdat \
+data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
 update_all_sas \
 run_all_sas \
 AD_algorithm_comparison \
@@ -120,4 +120,5 @@ clean:
 	rm -rf logs
 	rm -rf AD_algorithm_comparison
 	rm -rf updated_AD_algorithm_comparison
+	rm *.{log,pdf,lst}
 
