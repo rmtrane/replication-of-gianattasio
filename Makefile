@@ -46,7 +46,7 @@ data/SAS/hurd: data/HRS-zips/DementiaPredictedProbabilities.zip
 
 # Create wide format hurd data
 data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd
-	Rscript -e "haven::read_sas(here::here('data/SAS/hurd/pdem_withvarnames.sas7bdat')) %>% tidyr::pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% haven::write_xpt(here::here('data/SAS/HRS/hurdprobabilities_wide.sas7bdat'))"
+	Rscript -e "library(tidyr); haven::read_sas(here::here('data/SAS/hurd/pdem_withvarnames.sas7bdat')) %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% haven::write_xpt(here::here('data/SAS/HRS/hurdprobabilities_wide.sas7bdat'))"
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%: data/HRS-zips/adams1%.zip
