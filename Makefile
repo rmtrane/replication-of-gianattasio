@@ -100,6 +100,7 @@ updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_A
 # Create all updated_AD_algorithm_comparison
 updated_AD_algorithm_comparison: AD_algorithm_comparison
 	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+	bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
 
 ## Create HRS training and validation data sets
 
