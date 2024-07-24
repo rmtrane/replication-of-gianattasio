@@ -5,4 +5,4 @@ jobs:
   cp-README:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "cp ${{ github.workspace }}/qmd-documents/README.md ${{ github.workspace }}/README.md"
+      - run: cp ${{ github.workspace }}/qmd-documents/README.md ${{ github.workspace }}/README.md
