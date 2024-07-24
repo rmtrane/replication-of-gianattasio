@@ -1,10 +1,12 @@
 # Define lists of directories that should be created in data/HRS-unzips
 adamsDirs := data/HRS-unzips/adams1a data/HRS-unzips/adams1b data/HRS-unzips/adams1trk
-hDirs := data/HRS-unzips/h98 data/HRS-unzips/h00 data/HRS-unzips/h02 data/HRS-unzips/h04 data/HRS-unzips/h06 data/HRS-unzips/h08 data/HRS-unzips/h10
+hDirs := data/HRS-unzips/a95 data/HRS-unzips/h96 data/HRS-unzips/h98 data/HRS-unzips/h00 data/HRS-unzips/h02 data/HRS-unzips/h04 data/HRS-unzips/h06 data/HRS-unzips/h08 data/HRS-unzips/h10
 
 all: unzip_all data/SAS/rand/formats.sas7bcat update_all_sas run_all_sas
 
 update_all_sas: data/HRS-unzips/adams1a/new_sas data/HRS-unzips/adams1b/new_sas data/HRS-unzips/adams1trk/new_sas \
+	data/HRS-unzips/a95/new_sas \
+	data/HRS-unzips/h96/new_sas \
 	data/HRS-unzips/h98/new_sas \
 	data/HRS-unzips/h00/new_sas \
 	data/HRS-unzips/h02/new_sas \
@@ -40,6 +42,8 @@ endif
 # Unzip h* zip-files
 data/HRS-unzips/h%: data/HRS-zips/h%da.zip data/HRS-zips/h%sas.zip
 	bash scripts/bash/unzip_h_files.sh -f data/HRS-zips/`basename $@`
+data/HRS-unzips/a%: data/HRS-zips/a%da.zip data/HRS-zips/a%sas.zip
+	bash scripts/bash/unzip_h_files.sh -f data/HRS-zips/`basename $@`
 
 # Unzip RAND zip-files
 data/SAS/rand: data/HRS-zips/randhrsp_archive_SAS.zip
@@ -53,8 +57,10 @@ data/HRS-unzips/adams1%/new_sas: # data/HRS-unzips/adams1
 data/SAS/rand/formats.sas7bcat: data/SAS/rand
 	bash scripts/bash/create_rand_formats.sh -d $(dir $(abspath $@))
 
-# Create updated SAS files for h%%
+# Create updated SAS files for h%% and a%%
 data/HRS-unzips/h%/new_sas: data/HRS-unzips/h%
+	bash scripts/bash/update_hrs_sas_files.sh -d $(abspath $@)
+data/HRS-unzips/a%/new_sas: data/HRS-unzips/a%
 	bash scripts/bash/update_hrs_sas_files.sh -d $(abspath $@)
 
 # Run updated SAS files to create new sas datasets
@@ -75,7 +81,8 @@ updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_A
 ## Create HRS training and validation data sets
 # First, 1a
 data/SAS/created/master_ad_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas
-	sas updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas
+	mkdir -p logs/updated_AD_algorithm_comparison
+	sas updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas -log logs/updated_AD_algorithm_comparison/ # 1a_extract_self_response_variables.sas
 
 # Second, 1b
 

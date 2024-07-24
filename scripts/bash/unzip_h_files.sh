@@ -22,5 +22,11 @@ unzip "$file"da.zip -d data/HRS-unzips/"$filename"/da
 unzip "$file"sas.zip -d data/HRS-unzips/"$filename"/sas
 
 # Make sure all file extensions are lower case
-find data/HRS-unzips/"$filename"/da -name '*.*' -exec sh -c 'a=$(echo "$0" | sed -r "s/([^.]*)\$/\L\1/"); [ "$a" != "$0" ] && mv "$0" "$a" ' {} \;
-find data/HRS-unzips/"$filename"/sas -name '*.*' -exec sh -c 'a=$(echo "$0" | sed -r "s/([^.]*)\$/\L\1/"); [ "$a" != "$0" ] && mv "$0" "$a" ' {} \;
+find data/HRS-unzips/"$filename"/{sas,da} -name '*.*' | while read f
+do
+    ext=`echo "${f##*.}" | tr "[:upper:]" "[:lower:]"`
+    newfile="${f%.*}"
+
+    mv $f "$newfile"."$ext"
+
+done
