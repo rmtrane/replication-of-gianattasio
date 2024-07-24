@@ -27,6 +27,8 @@ do
     ext=`echo "${f##*.}" | tr "[:upper:]" "[:lower:]"`
     newfile="${f%.*}"
 
-    mv $f "$newfile"."$ext"
+    if [[ ! "${f##*.}" = $ext ]]; then
+	mv $f "$newfile"."$ext"
+    fi
 
 done
