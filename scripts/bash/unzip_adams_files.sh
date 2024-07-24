@@ -34,7 +34,7 @@ filename=${basename%.*}
 mkdir -p data/HRS-unzips
 
 # Unzip ADAMS zip file
-unzip -P $password $file -d "data/HRS-unzips/$filename"
+unzip -q -P $password $file -d "data/HRS-unzips/$filename"
 
 # Get current wave (A, B, C, D, or CrossWave)
 wave=${filename#adams1}
@@ -47,10 +47,10 @@ else
 fi
 
 # Unzip nested zip folder with SAS scripts
-unzip data/HRS-unzips/"$filename"/"$filename"sas.zip -d data/HRS-unzips/"$filename"/sas
+unzip -q data/HRS-unzips/"$filename"/"$filename"sas.zip -d data/HRS-unzips/"$filename"/sas
 
 # Unzip nested zip folder with data files
-unzip data/HRS-unzips/"$filename"/"$filename"da.zip -d data/HRS-unzips/"$filename"/da
+unzip -q data/HRS-unzips/"$filename"/"$filename"da.zip -d data/HRS-unzips/"$filename"/da
 
 # Make sure all file extensions are lower case
 find data/HRS-unzips/"$filename"/{sas,da} -name '*.*' | while read f

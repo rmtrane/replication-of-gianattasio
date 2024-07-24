@@ -74,9 +74,12 @@ AD_algorithm_comparison:
 	git clone git@github.com:powerepilab/AD_algorithm_comparison.git AD_algorithm_comparison
 	cd AD_algorithm_comparison; git reset --hard 1338e71
 
-# Create updated_AD_algorithm_comparisons
+# Create updated_AD_algorithm_comparison (one file at a time)
 updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas: AD_algorithm_comparison/*
 	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+
+# Create all updated_AD_algorithm_comparison
+updated_AD_algorithm_comparison: updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas
 
 ## Create HRS training and validation data sets
 # First, 1a
