@@ -4,7 +4,7 @@ author: "Ralph Møller Trane"
 format: 
   gfm:
     output-file: README.md
-bibliography: ../references.bib
+bibliography: references.bib
 ---
 
 ## Introduction
