@@ -47,7 +47,7 @@ data/SAS/hurd: data/HRS-zips/DementiaPredictedProbabilities.zip
 # Create wide format hurd data
 data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd
 	mkdir -p data/SAS/created
-	Rscript -e "library(tidyr); haven::read_sas('data/SAS/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% haven::write_xpt('data/SAS/created/hurdprobabilities_wide.sas7bdat')"
+	Rscript -e "library(tidyr); haven::read_sas('data/SAS/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% readr::write_csv('data/SAS/created/hurdprobabilities_wide.csv', na = '.')"
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%: data/HRS-zips/adams1%.zip
@@ -95,6 +95,7 @@ AD_algorithm_comparison:
 # Create updated_AD_algorithm_comparison (one file at a time)
 updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas: AD_algorithm_comparison
 	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+	bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
 
 # Create all updated_AD_algorithm_comparison
 updated_AD_algorithm_comparison: AD_algorithm_comparison
