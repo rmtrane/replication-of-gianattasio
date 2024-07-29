@@ -40,7 +40,7 @@ filename=${file##*/}
 filename=${filename%.*}
 
 # Next, create inputfile
-inputfile=$dafolder/$filename.sas
+inputfile=$dafolder/$filename.da
 
 LC_ALL=C sed "s|LIBNAME .*|LIBNAME ADAMS1 \"${outfolder}\";|" $file |
     LC_ALL=C sed "s|INFILE .*|INFILE \"${inputfile}\" LRECL=1268;|" > `dirname $infolder`/new_sas/$filename.sas
