@@ -151,13 +151,13 @@ allHRSSASfiles := $(notdir $(wildcard data/HRS-unzips/h*/new_sas/*.sas data/HRS-
 
 $(addsuffix 7bdat,$(addprefix data/SAS/HRS/,$(allHRSSASfiles))) : # data/SAS/HRS/%.sas7bdat : $(wildcard data/HRS-unzips/*/new_sas/%.sas)
 	@$(MAKE) `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"`
-	@sas `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"` -log logs/HRS/"$(basename $(notdir $@))".log
+	@sas `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"` -log logs/HRS/
 
 allADAMSSASfiles := $(notdir $(wildcard data/HRS-unzips/adams*/new_sas/*.sas))
 
 $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS/HRS/%.sas7bdat : $(wildcard data/HRS-unzips/*/new_sas/%.sas)
 	@$(MAKE) `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"`
-	@sas `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"` -log logs/ADAMS/"$(basename $(notdir $@))".log
+	@sas `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"` -log logs/ADAMS/
 
 run_all_sas:
 	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles)) $(addprefix data/SAS/HRS/,$(allHRSSASfiles)))
