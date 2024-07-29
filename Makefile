@@ -159,6 +159,8 @@ $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS
 	@$(MAKE) `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"`
 	@sas `find data/HRS-unzips/*/new_sas -type file -iname "$(basename $(notdir $@)).sas"` -log logs/ADAMS/"$(basename $(notdir $@))".log
 
+run_all_sas:
+	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles)) $(addprefix data/SAS/HRS/,$(allHRSSASfiles)))
 
 # Run updated SAS files to create new sas datasets
 # data/SAS/HRS/%.sas7bdat: $(wildcard */new_sas/%.sas)
@@ -167,9 +169,6 @@ $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS
 # @mkdir -p data/SAS/HRS
 # @mkdir -p logs/HRS
 # @sas data/HRS-unzips/%
-
-data/SAS/adams1%: 
-	bash scripts/bash/run_adams_sas.sh $(notdir $@)
 
 # Download AD Algorithm Comparison repo and checkout commit known to work (probably not needed, but in case orig author makes future chances)
 AD_algorithm_comparison: 
