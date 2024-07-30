@@ -1,4 +1,4 @@
-
+all: data/SAS/created/hrsv_2018_0302.sas7bdat
 
 ###############
 ## Unzip Files
@@ -164,7 +164,7 @@ data/SAS/created/master_ad_2018_0117.sas7bdat: data/SAS/created/master_2018_0117
 	sas updated_AD_algorithm_comparison/2_create_lags_etc.sas -log logs/updated_AD_algorithm_comparison/
 
 # Third, run 3
-data/SAS/created/master_adpred_wide_2018_0302.sas7bdat data/SAS/created/HRSt_2018_0302.sas7bdat data/SAS/created/HRSv_2018_0302.sas7bdat data/SAS/created/commsampfinal_key.sas7bdat: data/SAS/HRS/hurdprobabilities_wide.sas7bdat data/SAS/created/master_ad_2018_0117.sas7bdat
+data/SAS/created/master_adpred_wide_2018_0302.sas7bdat data/SAS/created/hrst_2018_0302.sas7bdat data/SAS/created/hrsv_2018_0302.sas7bdat data/SAS/created/commsampfinal_key.sas7bdat: data/SAS/HRS/hurdprobabilities_wide.sas7bdat data/SAS/created/master_ad_2018_0117.sas7bdat
 	sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas -log logs/updated_AD_algorithm_comparison/
 
 
