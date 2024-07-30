@@ -30,9 +30,9 @@ unzip_all: check_all_zips
 	@echo "##########################################################"
 	@echo ""
 	@echo "ADAMS"
-	@$(MAKE) --silent $(addsuffix /touch, $(adamsDirs))
+	@$(MAKE) $(addsuffix /touch, $(adamsDirs))
 	@echo "HRS"
-	@$(MAKE) --silent $(addsuffix /touch, $(hDirs))
+	@$(MAKE) $(addsuffix /touch, $(hDirs))
 	@echo "RAND"
 	@$(MAKE) --silent data/SAS/rand/rndhrs_p.sas7bdat
 	@echo "HURD"
