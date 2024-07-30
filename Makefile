@@ -1,24 +1,4 @@
-# all: unzip_all \
-# data/SAS/rand/formats.sas7bcat \
-# update_all_sas \
-# run_all_sas \
-# data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
-# AD_algorithm_comparison \
-# updated_AD_algorithm_comparison \
-# data/SAS/created/HRSt_2018_0302.sas7bdat
 
-# update_all_sas: data/HRS-unzips/adams1a/new_sas data/HRS-unzips/adams1b/new_sas data/HRS-unzips/adams1trk/new_sas \
-# data/HRS-unzips/a95/new_sas \
-# data/HRS-unzips/h96/new_sas \
-# data/HRS-unzips/h98/new_sas \
-# data/HRS-unzips/h00/new_sas \
-# data/HRS-unzips/h02/new_sas \
-# data/HRS-unzips/h04/new_sas \
-# data/HRS-unzips/h06/new_sas \
-# data/HRS-unzips/h08/new_sas \
-# data/HRS-unzips/h10/new_sas
-
-# run_all_sas: data/SAS/adams1a data/SAS/adams1b data/SAS/adams1trk data/SAS/HRS
 
 ###############
 ## Unzip Files
@@ -95,21 +75,6 @@ data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd/hurdprobabilities_wi
 ## Update SAS scripts with correct paths
 ##################
 
-# Define list with files that should be created in data/HRS-unzips/adams1{a,b}/new_sas
-#adams1a_new_sas := ADAMS1AB_R.sas \
-ADAMS1AC_R.sas \
-ADAMS1AD_R.sas \
-ADAMS1AE_D.sas \
-ADAMS1AF_R.sas \
-ADAMS1AF_CH.sas \
-ADAMS1AF_SB.sas \
-ADAMS1AG_R.sas \
-ADAMS1AH_R.sas \
-ADAMS1AH_C.sas \
-ADAMS1AJ_R.sas \
-ADAMS1AM_R.sas \
-ADAMS1AN_R.sas
-
 # Create updated SAS files for ADAMS
 data/HRS-unzips/adams1a/new_sas/%.sas: data/HRS-unzips/adams1a/touch
 	@bash scripts/bash/update_sas_file.sh -f $(subst /new_sas/,/sas/,$@)
@@ -146,7 +111,7 @@ update_all_sas:
 data/SAS/rand/formats.sas7bcat: data/SAS/rand/touch
 	@bash scripts/bash/create_rand_formats.sh -d $(dir $(abspath $@))
 
-# List of all SAS files that should be run
+# List of all HRS SAS files that should be run
 allHRSSASfiles := $(notdir $(wildcard data/HRS-unzips/h*/new_sas/*.sas data/HRS-unzips/a95/new_sas/*.sas))
 
 $(addsuffix 7bdat,$(addprefix data/SAS/HRS/,$(allHRSSASfiles))) : # data/SAS/HRS/%.sas7bdat : $(wildcard data/HRS-unzips/*/new_sas/%.sas)
@@ -154,6 +119,7 @@ $(addsuffix 7bdat,$(addprefix data/SAS/HRS/,$(allHRSSASfiles))) : # data/SAS/HRS
 	@mkdir -p {logs,data/SAS}/HRS
 	@sas `find data/HRS-unzips/*/new_sas -type f -iname "$(basename $(notdir $@)).sas"` -log logs/HRS/
 
+# List of all ADAMS SAS files that should be run
 allADAMSSASfiles := $(notdir $(wildcard data/HRS-unzips/adams*/new_sas/*.sas))
 
 $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS/HRS/%.sas7bdat : $(wildcard data/HRS-unzips/*/new_sas/%.sas)
@@ -161,21 +127,18 @@ $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS
 	@mkdir -p {logs,data/SAS}/ADAMS
 	@sas `find data/HRS-unzips/*/new_sas -type f -iname "$(basename $(notdir $@)).sas"` -log logs/ADAMS/
 
+# Target to run all
 run_all_sas:
 	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles)) $(addprefix data/SAS/HRS/,$(allHRSSASfiles)))
 
-# Run updated SAS files to create new sas datasets
-# data/SAS/HRS/%.sas7bdat: $(wildcard */new_sas/%.sas)
-#	@echo $@
-#	@echo $<
-# @mkdir -p data/SAS/HRS
-# @mkdir -p logs/HRS
-# @sas data/HRS-unzips/%
+####################
+## AD Algorithm Comparison
+####################
 
 # Download AD Algorithm Comparison repo and checkout commit known to work (probably not needed, but in case orig author makes future chances)
-AD_algorithm_comparison: 
+AD_algorithm_comparison/touch: 
 	git clone git@github.com:powerepilab/AD_algorithm_comparison.git AD_algorithm_comparison
-	cd AD_algorithm_comparison; git reset --hard 1338e71
+	cd AD_algorithm_comparison; git reset --hard 1338e71 && touch touch
 
 # Create updated_AD_algorithm_comparison (one file at a time)
 updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas: AD_algorithm_comparison
@@ -187,10 +150,12 @@ updated_AD_algorithm_comparison: AD_algorithm_comparison
 	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
 	bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
 
+####################
 ## Create HRS training and validation data sets
+####################
 
 # First, run 1b (which in turn calls 1a)
-data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas
+data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas data/SAS/rand/formats.sas7bcat
 	mkdir -p logs/updated_AD_algorithm_comparison
 	sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas -log logs/updated_AD_algorithm_comparison/ # 1a_extract_self_response_variables.sas
 
@@ -201,6 +166,11 @@ data/SAS/created/master_ad_2018_0117.sas7bdat: data/SAS/created/master_2018_0117
 # Third, run 3
 data/SAS/created/master_adpred_wide_2018_0302.sas7bdat data/SAS/created/HRSt_2018_0302.sas7bdat data/SAS/created/HRSv_2018_0302.sas7bdat data/SAS/created/commsampfinal_key.sas7bdat: data/SAS/HRS/hurdprobabilities_wide.sas7bdat data/SAS/created/master_ad_2018_0117.sas7bdat
 	sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas -log logs/updated_AD_algorithm_comparison/
+
+
+####################
+## Clean
+####################
 
 # Clean/reset. I.e. remove everything created by this Makefile
 clean:
