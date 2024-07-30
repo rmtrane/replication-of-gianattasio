@@ -230,6 +230,4 @@ clean:
 	@if [ -d logs ]; then echo "Removing logs"; rm -r logs; fi
 	@if [ -d AD_algorithm_comparison ]; then echo "Removing AD_algorithm_comparison"; rm -r AD_algorithm_comparison; fi
 	@if [ -d updated_AD_algorithm_comparison ]; then echo "Removing updated_AD_algorithm_comparison"; rm -r updated_AD_algorithm_comparison; fi
-
-# Remove log,pdf,lst files
 	@find . -type f \( -iname "*.log" -o -iname "*.pdf" -o -iname "*.lst" \) | while read f; do rm $f; done
