@@ -36,7 +36,7 @@ unzip_all: check_all_zips
 	@echo "RAND"
 	@$(MAKE) --silent data/SAS/rand/rndhrs_p.sas7bdat
 	@echo "HURD"
-	@$(MAKE) --silent data/SAS/hurd/hurdprobabilities_wide.touch
+	@$(MAKE) --silent data/SAS/hurd/hurdprobabilities_wide.sas7bdat
 
 # Unzip hurd probabilities
 data/SAS/hurd/hurdprobabilities_wide.sas7bdat: data/HRS-zips/DementiaPredictedProbabilities.zip
