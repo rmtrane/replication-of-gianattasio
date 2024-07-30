@@ -1,4 +1,6 @@
-all: unzip_all \
+all:
+	@echo "Unzip all .zip files into data/HRS-unzips/"
+	$(MAKE) unzip_all 
 data/SAS/rand/randhrs_p.sas7bdat \
 data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
 update_all_sas \
@@ -28,13 +30,13 @@ check_all_zips:
 # Unzip everything
 unzip_all: check_all_zips
 	@echo "ADAMS"
-	@$(MAKE) $(addsuffix /touch, $(adamsDirs))
+	@$(MAKE) --silent $(addsuffix /touch, $(adamsDirs))
 	@echo "HRS"
-	@$(MAKE) $(addsuffix /touch, $(hDirs))
+	@$(MAKE) --silent $(addsuffix /touch, $(hDirs))
 	@echo "RAND"
-	@$(MAKE) data/SAS/rand/rndhrs_p.sas7bdat
+	@$(MAKE) --silent data/SAS/rand/rndhrs_p.sas7bdat
 	@echo "HURD"
-	@$(MAKE) data/SAS/hurd/hurdprobabilities_wide.sas7bdat
+	@$(MAKE) --silent data/SAS/hurd/hurdprobabilities_wide.sas7bdat
 
 # Unzip hurd probabilities
 data/SAS/hurd/hurdprobabilities_wide.sas7bdat: data/HRS-zips/DementiaPredictedProbabilities.zip
