@@ -159,7 +159,7 @@ updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_A
 ####################
 
 # First, run 1b (which in turn calls 1a)
-data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas data/SAS/rand/formats.sas7bcat
+data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas data/SAS/rand/formats.sas7bcat run_all_sas
 	mkdir -p logs/updated_AD_algorithm_comparison
 	sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas -log logs/updated_AD_algorithm_comparison/ # 1a_extract_self_response_variables.sas
 
