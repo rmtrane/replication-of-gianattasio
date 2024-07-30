@@ -1,15 +1,19 @@
 all:
 	@echo "Unzip all .zip files into data/HRS-unzips/"
-	$(MAKE) unzip_all 
-data/SAS/rand/randhrs_p.sas7bdat \
-data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
-update_all_sas \
-run_all_sas \
-AD_algorithm_comparison/touch \
-updated_AD_algorithm_comparison/touch \
-data/SAS/created/master_2018_0117.sas7bdat \
-data/SAS/created/master_ad_2018_0117.sas7bdat \
-data/SAS/created/hrst_2018_0302.sas7bdat
+	@$(MAKE) unzip_all
+	@echo "Update all HRS and ADAMS SAS files"
+	@$(MAKE) --silent update_all_sas
+	@echo "Run all SAS"
+	@$(MAKE) run_all_sas
+	@echo "Download AD_algorithm_comparison repo"
+	@$(MAKE) AD_algorithm_comparison/touch
+	@echo "Create updated_AD_algorithm_comparison"
+	@$(MAKE) updated_AD_algorithm_comparison/touch
+	@echo "Run SAS files 1a and 1b from AD_algorithm_comparison"
+	@$(MAKE) data/SAS/created/master_2018_0117.sas7bdat
+	@$(MAKE) data/SAS/created/master_ad_2018_0117.sas7bdat
+	@echo "Run SAS file 2 from AD_algorithm_comparison"
+	@$(MAKE) data/SAS/created/hrst_2018_0302.sas7bdat
 
 ###############
 ## Unzip Files
