@@ -1,4 +1,13 @@
-all: data/SAS/created/hrsv_2018_0302.sas7bdat
+all: unzip_all \
+data/SAS/rand/randhrs_p.sas7bdat \
+data/SAS/HRS/hurdprobabilities_wide.sas7bdat \
+update_all_sas \
+run_all_sas \
+AD_algorithm_comparison/touch \
+updated_AD_algorithm_comparison/touch \
+data/SAS/created/master_2018_0117.sas7bdat \
+data/SAS/created/master_ad_2018_0117.sas7bdat \
+data/SAS/created/hrst_2018_0302.sas7bdat
 
 ###############
 ## Unzip Files
@@ -129,7 +138,10 @@ $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS
 
 # Target to run all
 run_all_sas:
-	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles)) $(addprefix data/SAS/HRS/,$(allHRSSASfiles)))
+	@echo "Run all ADAMS sas files..."
+	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles)))
+	@echo "Run all HRS sas files..."
+	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/HRS/,$(allHRSSASfiles)))
 
 ####################
 ## AD Algorithm Comparison
@@ -147,12 +159,12 @@ updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_A
 	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
 	@touch updated_AD_algorithm_comparison/touch
 
-# # Create all updated_AD_algorithm_comparison
-# updated_AD_algorithm_comparison/touch: AD_algorithm_comparison/touch
-# 	@echo "Updating AD_algorithm_comparison..."
-# 	@bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
-# 	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
-# 	@touch updated_AD_algorithm_comparison/touch
+# Create all updated_AD_algorithm_comparison
+updated_AD_algorithm_comparison/touch: AD_algorithm_comparison/touch
+	@echo "Updating AD_algorithm_comparison..."
+	@bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
+	@touch updated_AD_algorithm_comparison/touch
 
 ####################
 ## Create HRS training and validation data sets
