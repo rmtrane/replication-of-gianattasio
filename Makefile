@@ -236,10 +236,4 @@ clean:
 	@if [ -d logs ]; then echo "Removing logs"; rm -r logs; fi
 	@if [ -d AD_algorithm_comparison ]; then echo "Removing AD_algorithm_comparison"; rm -r AD_algorithm_comparison; fi
 	@if [ -d updated_AD_algorithm_comparison ]; then echo "Removing updated_AD_algorithm_comparison"; rm -r updated_AD_algorithm_comparison; fi
-	@for file in *.log *.synctex.gz *.aux *.out *.toc .run_all_sas .update_all_sas; do
-		if [ -e "$file" ]; then
-			rm "$$file" || exit 1;
-		else
-			printf 'No such file: %s\n' "$file"
-		fi
-	 done
+	@rm *.log *.lst *.pdf .*_all_sas

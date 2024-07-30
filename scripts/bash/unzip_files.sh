@@ -40,7 +40,7 @@ if [ -z ${pword+x} ]; then
     
 else
     ## ADAMS files
-    echo "Password is given. Assuming .zip file IS an ADAMS file.'"
+    echo "Password is given. Assuming .zip file IS an ADAMS file."
 
     # Unzip ADAMS zip file
     unzip -q -P $pword $file -d "data/HRS-unzips/$filename"
