@@ -140,15 +140,19 @@ AD_algorithm_comparison/touch:
 	git clone git@github.com:powerepilab/AD_algorithm_comparison.git AD_algorithm_comparison
 	cd AD_algorithm_comparison; git reset --hard 1338e71 && touch touch
 
-# Create updated_AD_algorithm_comparison (one file at a time)
+# Create updated_AD_algorithm_comparison (making any target will create all targets)
 updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas: AD_algorithm_comparison
-	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
-	bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
+	@echo "Updating AD_algorithm_comparison..."
+	@bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
+	@touch updated_AD_algorithm_comparison/touch
 
-# Create all updated_AD_algorithm_comparison
-updated_AD_algorithm_comparison: AD_algorithm_comparison
-	bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
-	bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
+# # Create all updated_AD_algorithm_comparison
+# updated_AD_algorithm_comparison/touch: AD_algorithm_comparison/touch
+# 	@echo "Updating AD_algorithm_comparison..."
+# 	@bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
+# 	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
+# 	@touch updated_AD_algorithm_comparison/touch
 
 ####################
 ## Create HRS training and validation data sets
@@ -182,4 +186,3 @@ clean:
 
 # Remove log,pdf,lst files
 	@find . -type f \( -iname "*.log" -o -iname "*.pdf" -o -iname "*.lst" \) | while read f; do rm $f; done
-
