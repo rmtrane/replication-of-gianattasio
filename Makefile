@@ -1,18 +1,45 @@
 all:
-	@echo "Unzip all .zip files into data/HRS-unzips/"
+	@echo "##########################################################"
+	@echo "## Unzip all .zip files into data/HRS-unzips/           ##"
+	@echo "##########################################################"
+	@echo ""
 	@$(MAKE) unzip_all
-	@echo "Update all HRS and ADAMS SAS files"
-	@$(MAKE) --silent update_all_sas
-	@echo "Run all SAS"
-	@$(MAKE) run_all_sas
-	@echo "Download AD_algorithm_comparison repo"
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Update all HRS and ADAMS SAS files                   ##"
+	@echo "##########################################################"
+	@echo ""
+	@$(MAKE) --silent .update_all_sas
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Run all SAS                                          ##"
+	@echo "##########################################################"
+	@echo ""
+	@$(MAKE) .run_all_sas
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Download AD_algorithm_comparison repo                ##"
+	@echo "##########################################################"
+	@echo ""
 	@$(MAKE) AD_algorithm_comparison/touch
-	@echo "Create updated_AD_algorithm_comparison"
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Create updated_AD_algorithm_comparison               ##"
+	@echo "##########################################################"
+	@echo ""
 	@$(MAKE) updated_AD_algorithm_comparison/touch
-	@echo "Run SAS files 1a and 1b from AD_algorithm_comparison"
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Run SAS files 1a and 1b from AD_algorithm_comparison ##"
+	@echo "##########################################################"
+	@echo ""
 	@$(MAKE) data/SAS/created/master_2018_0117.sas7bdat
 	@$(MAKE) data/SAS/created/master_ad_2018_0117.sas7bdat
-	@echo "Run SAS file 2 from AD_algorithm_comparison"
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Run SAS file 2 from AD_algorithm_comparison          ##"
+	@echo "##########################################################"
+	@echo ""
 	@$(MAKE) data/SAS/created/hrst_2018_0302.sas7bdat
 
 ###############
@@ -119,8 +146,9 @@ data/HRS-unzips/h10/new_sas/%.sas: data/HRS-unzips/h10/touch
 	@bash scripts/bash/update_sas_file.sh -f $(subst /new_sas/,/sas/,$@)
 
 # Create new_sas for all sas files
-update_all_sas:
+.update_all_sas:
 	@$(MAKE) $(subst /sas/,/new_sas/,$(wildcard data/HRS-unzips/*/sas/*))
+	@touch .update_all_sas
 
 # Create formats for RAND file
 data/SAS/rand/formats.sas7bcat: data/SAS/rand/rndhrs_p.sas7bdat
@@ -143,11 +171,12 @@ $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))) : # data/SAS
 	@sas `find data/HRS-unzips/*/new_sas -type f -iname "$(basename $(notdir $@)).sas"` -log logs/ADAMS/
 
 # Target to run all
-run_all_sas:
+.run_all_sas:
 	@echo "Run all ADAMS sas files..."
 	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles)))
 	@echo "Run all HRS sas files..."
 	@$(MAKE) $(addsuffix 7bdat,$(addprefix data/SAS/HRS/,$(allHRSSASfiles)))
+	@touch .run_all_sas
 
 ####################
 ## AD Algorithm Comparison
@@ -177,9 +206,9 @@ updated_AD_algorithm_comparison/touch: AD_algorithm_comparison/touch
 ####################
 
 # First, run 1b (which in turn calls 1a)
-data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas data/SAS/rand/formats.sas7bcat run_all_sas
+data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas data/SAS/rand/formats.sas7bcat .run_all_sas
 	mkdir -p logs/updated_AD_algorithm_comparison
-	sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas -log logs/updated_AD_algorithm_comparison/ # 1a_extract_self_response_variables.sas
+	sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas -log logs/updated_AD_algorithm_comparison/
 
 # Second, run 2
 data/SAS/created/master_ad_2018_0117.sas7bdat: data/SAS/created/master_2018_0117.sas7bdat updated_AD_algorithm_comparison/2_create_lags_etc.sas 
