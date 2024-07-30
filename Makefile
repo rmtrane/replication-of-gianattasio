@@ -72,12 +72,12 @@ data/HRS-unzips/h%/touch: data/HRS-zips/h%da.zip data/HRS-zips/h%sas.zip
 data/HRS-unzips/a%/touch: data/HRS-zips/a%da.zip data/HRS-zips/a%sas.zip
 	@bash scripts/bash/unzip_files.sh -f $(subst unzips,zips,$(patsubst %/,%,$(dir $@))) && touch $@  # data/HRS-zips/`basename $@`	
 
-# Unzip RAND zip-files to get rndhrs_p.sas7bdat and create data/SAS/HRS/hurdprobabilities_wide.sas7bdat
-data/SAS/rand/touch: data/HRS-zips/randhrsp_archive_SAS.zip
+# Unzip RAND zip-files to get rndhrs_p.sas7bdat and create data/SAS/created/hurdprobabilities_wide.sas7bdat
+data/SAS/rand/rndhrs_p.sas7bdat: data/HRS-zips/randhrsp_archive_SAS.zip
 	@mkdir -p data/SAS
 	@unzip -q data/HRS-zips/randhrsp_archive_SAS.zip -d data/SAS/rand && touch data/SAS/rand/touch
 
-data/SAS/HRS/hurdprobabilities_wide.sas7bdat: data/SAS/hurd/touch #hurdprobabilities_wide.sas7bdat
+data/SAS/created/hurdprobabilities_wide.sas7bdat: data/SAS/hurd/hurdprobabilities_wide.sas7bdat
 	@mkdir -p data/SAS/created
 	@Rscript -e "library(tidyr); haven::read_sas('data/SAS/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% readr::write_csv('data/SAS/created/hurdprobabilities_wide.csv', na = '.')"
 
@@ -184,7 +184,11 @@ updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_A
 
 # Create all updated_AD_algorithm_comparison
 updated_AD_algorithm_comparison/touch: AD_algorithm_comparison/touch
-	@echo "Updating AD_algorithm_comparison..."
+	@echo ""
+	@echo "##########################################################"
+	@echo "## Create updated_AD_algorithm_comparison               ##"
+	@echo "##########################################################"
+	@echo ""
 	@bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
 	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
 	@touch updated_AD_algorithm_comparison/touch
@@ -207,16 +211,16 @@ data/SAS/created/master_2018_0117.sas7bdat: updated_AD_algorithm_comparison/1b_e
 data/SAS/created/master_ad_2018_0117.sas7bdat: data/SAS/created/master_2018_0117.sas7bdat updated_AD_algorithm_comparison/2_create_lags_etc.sas
 	@echo ""
 	@echo "##########################################################"
-	@echo "## Run SAS file 1b from AD_algorithm_comparison         ##"
+	@echo "## Run SAS file 2 from AD_algorithm_comparison         ##"
 	@echo "##########################################################"
 	@echo ""
 	@sas updated_AD_algorithm_comparison/2_create_lags_etc.sas -log logs/updated_AD_algorithm_comparison/
 
 # Third, run 3
-data/SAS/created/master_adpred_wide_2018_0302.sas7bdat data/SAS/created/hrst_2018_0302.sas7bdat data/SAS/created/hrsv_2018_0302.sas7bdat data/SAS/created/commsampfinal_key.sas7bdat: data/SAS/HRS/hurdprobabilities_wide.sas7bdat data/SAS/created/master_ad_2018_0117.sas7bdat
+data/SAS/created/master_adpred_wide_2018_0302.sas7bdat data/SAS/created/hrst_2018_0302.sas7bdat data/SAS/created/hrsv_2018_0302.sas7bdat data/SAS/created/commsampfinal_key.sas7bdat: data/SAS/created/hurdprobabilities_wide.sas7bdat data/SAS/created/master_ad_2018_0117.sas7bdat
 	@echo ""
 	@echo "##########################################################"
-	@echo "## Run SAS file 2 from AD_algorithm_comparison          ##"
+	@echo "## Run SAS file 3 from AD_algorithm_comparison          ##"
 	@echo "##########################################################"
 	@echo ""
 	@sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas -log logs/updated_AD_algorithm_comparison/
