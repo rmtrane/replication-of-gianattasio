@@ -39,9 +39,9 @@ unzip_all: check_all_zips
 	@$(MAKE) --silent data/SAS/hurd/hurdprobabilities_wide.touch
 
 # Unzip hurd probabilities
-data/SAS/hurd/hurdprobabilities_wide.touch: data/HRS-zips/DementiaPredictedProbabilities.zip
+data/SAS/hurd/hurdprobabilities_wide.sas7bdat: data/HRS-zips/DementiaPredictedProbabilities.zip
 	@mkdir -p data/SAS/hurd
-	@unzip -q data/HRS-zips/DementiaPredictedProbabilities.zip -d data/SAS/hurd && touch data/SAS/hurd/hurdprobabilities_wide.touch
+	@unzip -q data/HRS-zips/DementiaPredictedProbabilities.zip -d data/SAS/hurd && touch data/SAS/hurd/hurdprobabilities_wide.sas7bdat
 
 # Unzip ADAMS zip-files
 data/HRS-unzips/adams1%/touch: data/HRS-zips/adams1%.zip
@@ -125,7 +125,7 @@ data/HRS-unzips/h10/new_sas/%.sas: data/HRS-unzips/h10/touch
 	@touch .update_all_sas
 
 # Create formats for RAND file
-data/SAS/rand/formats.sas7bcat: data/SAS/rand/rndhrs_p.touch 
+data/SAS/rand/formats.sas7bcat: data/SAS/rand/rndhrs_p.sas7bdat 
 	@bash scripts/bash/create_rand_formats.sh -d $(dir $(abspath $@))
 
 # List of all HRS SAS files that should be run
