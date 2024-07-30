@@ -34,7 +34,7 @@ unzip_all: check_all_zips
 	@echo "HRS"
 	@$(MAKE) --silent $(addsuffix /touch, $(hDirs))
 	@echo "RAND"
-	@$(MAKE) --silent data/SAS/rand/rndhrs_p.touch
+	@$(MAKE) --silent data/SAS/rand/rndhrs_p.sas7bdat
 	@echo "HURD"
 	@$(MAKE) --silent data/SAS/hurd/hurdprobabilities_wide.touch
 
@@ -73,9 +73,9 @@ data/HRS-unzips/a%/touch: data/HRS-zips/a%da.zip data/HRS-zips/a%sas.zip
 	@bash scripts/bash/unzip_files.sh -f $(subst unzips,zips,$(patsubst %/,%,$(dir $@))) && touch $@  # data/HRS-zips/`basename $@`	
 
 # Unzip RAND zip-files to get rndhrs_p.sas7bdat and create data/SAS/created/hurdprobabilities_wide.sas7bdat
-data/SAS/rand/rndhrs_p.touch: data/HRS-zips/randhrsp_archive_SAS.zip
+data/SAS/rand/rndhrs_p.sas7bdat: data/HRS-zips/randhrsp_archive_SAS.zip
 	@mkdir -p data/SAS
-	@unzip -q data/HRS-zips/randhrsp_archive_SAS.zip -d data/SAS/rand && touch data/SAS/rand/rndhrs_p.touch
+	@unzip -q data/HRS-zips/randhrsp_archive_SAS.zip -d data/SAS/rand && touch data/SAS/rand/rndhrs_p.sas7bdat
 
 data/SAS/created/hurdprobabilities_wide.sas7bdat: data/SAS/hurd/hurdprobabilities_wide.sas7bdat
 	@mkdir -p data/SAS/created
