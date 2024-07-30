@@ -141,7 +141,7 @@ AD_algorithm_comparison/touch:
 	cd AD_algorithm_comparison; git reset --hard 1338e71 && touch touch
 
 # Create updated_AD_algorithm_comparison (making any target will create all targets)
-updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas: AD_algorithm_comparison
+updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas updated_AD_algorithm_comparison/1b_extract_proxy_variables.sas updated_AD_algorithm_comparison/2_create_lags_etc.sas updated_AD_algorithm_comparison/3_create_training_and_validation_datasets.sas: AD_algorithm_comparison/touch
 	@echo "Updating AD_algorithm_comparison..."
 	@bash scripts/bash/update_AD_algorithm_comparison_sas_files.sh
 	@bash scripts/bash/insert_proc_hurd_in_3_create_training_and_validation_datasets.sh
