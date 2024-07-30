@@ -36,7 +36,7 @@ inputfile=$dafolder/$filename.da
 
 #echo $file
 
-sed -E "s|^LIBNAME (.*) '.*'|LIBNAME \1 '${outfolder}'|I" $file | 
+sed -E "s|^LIBNAME (.*)[[:space:]]*'.*'|LIBNAME \1 '${outfolder}'|I" $file | 
     sed -E "s|^INFILE .* LRECL[[:space:]]*=[[:space:]]*([0-9]+)|INFILE '${inputfile}' LRECL=\1|I" > `dirname $infolder`/new_sas/$filename.sas
 
 
