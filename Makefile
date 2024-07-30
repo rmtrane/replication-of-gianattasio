@@ -108,7 +108,7 @@ update_all_sas:
 	@$(MAKE) $(subst /sas/,/new_sas/,$(wildcard data/HRS-unzips/*/sas/*))
 
 # Create formats for RAND file
-data/SAS/rand/formats.sas7bcat: data/SAS/rand/touch
+data/SAS/rand/formats.sas7bcat: data/SAS/rand/rndhrs_p.sas7bdat
 	@bash scripts/bash/create_rand_formats.sh -d $(dir $(abspath $@))
 
 # List of all HRS SAS files that should be run
