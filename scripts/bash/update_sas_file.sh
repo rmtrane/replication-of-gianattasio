@@ -18,10 +18,21 @@ while getopts ":f:" opt; do
   esac
 done
 
+
+
+case $file in
+    *adams*)
+	outsubfolder=ADAMS
+	;;
+    *)
+	outsubfolder=HRS
+	;;
+esac
+
 # Get important folders with absolute paths
 infolder=`dirname $(readlink -f $file)`
 dafolder=`dirname $infolder`/da
-outfolder=${infolder%/data/*}/data/SAS
+outfolder=${infolder%/data/*}/data/SAS/$outsubfolder
 
 # Create folder for new SAS files
 mkdir -p `dirname $infolder`/new_sas
