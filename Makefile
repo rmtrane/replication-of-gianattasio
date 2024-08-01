@@ -1,6 +1,8 @@
 all: unzip_all \
 .update_all_sas \
 .run_all_sas \
+data/SAS/rand/formats.sas7bcat \
+data/SAS/created/hurdprobabilities_wide.csv \
 AD_algorithm_comparison/touch \
 updated_AD_algorithm_comparison/touch \
 data/SAS/created/master_2018_0117.sas7bdat \
@@ -66,14 +68,14 @@ data/HRS-unzips/h%/touch: data/HRS-zips/h%da.zip data/HRS-zips/h%sas.zip
 data/HRS-unzips/a%/touch: data/HRS-zips/a%da.zip data/HRS-zips/a%sas.zip
 	@bash scripts/bash/unzip_files.sh -f $(subst unzips,zips,$(patsubst %/,%,$(dir $@))) && touch $@  # data/HRS-zips/`basename $@`	
 
-# Unzip RAND zip-files to get rndhrs_p.sas7bdat and create data/SAS/created/hurdprobabilities_wide.csv
+# Unzip RAND zip-files to get rndhrs_p.sas7bdat 
 data/HRS-unzips/rand/rndhrs_p.sas7bdat: data/HRS-zips/randhrsp_archive_SAS.zip
 	@mkdir -p data/HRS-unzips
 	@unzip -q data/HRS-zips/randhrsp_archive_SAS.zip -d data/HRS-unzips/rand && touch data/HRS-unzips/rand/rndhrs_p.sas7bdat
 
 # Unzip hurd probabilities
 data/HRS-unzips/hurd/pdem_withvarnames.sas7bdat: data/HRS-zips/DementiaPredictedProbabilities.zip
-	@mkdir -p data/SAS/hurd
+	@mkdir -p data/HRS-unzips
 	@unzip -q data/HRS-zips/DementiaPredictedProbabilities.zip -d data/HRS-unzips/hurd && touch data/HRS-unzips/hurd/pdem_withvarnames.sas7bdat
 
 
@@ -120,12 +122,6 @@ data/HRS-unzips/h10/new_sas/%.sas: data/HRS-unzips/h10/touch
 	@$(MAKE) $(subst /sas/,/new_sas/,$(wildcard data/HRS-unzips/*/sas/*))
 	@touch .update_all_sas
 
-# Create formats for RAND file
-data/SAS/rand/formats.sas7bcat: data/HRS-unzips/rand/rndhrs_p.sas7bdat
-	@cp $< data/SAS/rand/rndhrs_p_sas7bdat
-	@sed "s|ROOT|`pwd`|" scripts/SAS/RANDcreateFormats.sas > data/SAS/rand/createFormats.sas
-	@sas data/SAS/rand/createFormats.sas
-
 ####################
 ## Run SAS scripts
 ###################
@@ -160,13 +156,22 @@ $(addsuffix 7bdat,$(addprefix data/SAS/ADAMS/,$(allADAMSSASfiles))):
 	@touch .run_all_sas
 
 #####################
-## Create wide version of HURD probabilities
+## Prep RAND and Hurd data
 #####################
 
 ## We use R to get a wide version of the probabilities provided in data/SAS/hurd/pdem_withvarnames.sas7bdat
 data/SAS/created/hurdprobabilities_wide.csv: data/HRS-unzips/hurd/pdem_withvarnames.sas7bdat
 	@mkdir -p data/SAS/created
 	@Rscript -e "library(tidyr); haven::read_sas('data/HRS-unzips/hurd/pdem_withvarnames.sas7bdat') %>% pivot_wider(names_from = prediction_year, values_from = prob_dementia, names_prefix = 'hurd_prob_') %>% readr::write_csv('data/SAS/created/hurdprobabilities_wide.csv', na = '.')"
+
+
+
+# Copy relevant RAND files, and Create formats for RAND file
+data/SAS/rand/formats.sas7bcat: data/HRS-unzips/rand/rndhrs_p.sas7bdat data/HRS-unzips/rand/sasfmts.sas7bdat
+	@mkdir -p data/SAS/rand
+	@cp $^ data/SAS/rand/.
+	@sed "s|ROOT|`pwd`|" scripts/SAS/RANDcreateFormats.sas > data/SAS/rand/createFormats.sas
+	@sas data/SAS/rand/createFormats.sas
 
 
 ####################
