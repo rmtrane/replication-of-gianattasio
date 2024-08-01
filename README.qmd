@@ -34,7 +34,7 @@ This repo was developed for use on a linux machine with a working installation o
 
 We will go through the creation of the validation and test datasets step-by-step below. However, to simply quickly and easily create the data files, you can clone this repo to your local machine, download the files mentioned below to the folder `data/HRS-zips`, then run `make all` from the root directory of this repo. Note that the zip-files with the ADAMS data are locked with a password. If running the code below locally, replace `MYPASSWORD` with the password provided by HRS when you requested access to the ADAMS data.
 
-```
+```bash
 git clone https://github.com/rmtrane/replication-of-gianattasio.git ./
 
 cd replication-of-gianattasio/
@@ -144,19 +144,20 @@ Ultimately, we need to run a bunch of SAS scripts that take `.da` files and crea
 
 Take, as an example, the file `data/HRS-unzips/h98/sas/h98a_r.sas`. This file is about 300 lines long, but the essence of the file is included below. It essentially extracts the data needed from the data file `data/HRS-unzips/h98/da/h98a_r.da`, and saves it to a new data set. 
 
-```
+```{sas}
+#| eval: false
 libname EXTRACT 'c:\hrs1998\sas\' ; 
 
 DATA EXTRACT.H98A_R;
 INFILE 'c:\hrs1998\data\H98A_R.DA'  LRECL=192; 
 
 INPUT 
-  ... specify input columns...
+  /% ... specify input columns... %/
 ;
 
 
 LABEL
-  ... variable labels...
+  /% ... variable labels... %/
 ;
 
 run;
@@ -164,7 +165,7 @@ run;
 DATA EXTRACT.H98A_R;
 SET  EXTRACT.H98A_R;
 FORMAT 
-  ... formatting of variables...
+  /% ... formatting of variables... %/
 ;
 run;
 
@@ -172,7 +173,8 @@ run;
 
 To be able to run this SAS file, we need to fix the file paths. Set the `libname EXTRACT` to the folder `data/SAS/HRS/`, but include the full path. Also, fix the path to the input data file. In the end, the beginning of the file should look like this:
 
-```
+```{sas}
+#| eval: false
 libname EXTRACT '/path/to/root/folder/data/SAS/HRS/';
 
 DATA EXTRACT.H98A_R;
@@ -193,7 +195,8 @@ Once you've run all SAS files, you will have a total of 304 `.sas7bdat` files in
 
 To prepare the RAND data, we copy `rndhrs_p.sas7bdat` and `sasfmts.sas7bdat` from `data/HRS-unzips/rand` to `data/SAS/rand`. We then create `data/SAS/rand/formats.sas7bcat` using the following SAS scripts:
 
-```
+```{sas}
+#| eval: false
 libname library '/path/to/root/folder/data/SAS/rand';
   proc format library=library cntlin=library.sasfmts;
 run;
@@ -226,7 +229,7 @@ We now have all the data ready to create the training and validation data sets u
 
 Clone the github repo into a new folder in your root directory. Call this folder `AD_algorithm_comparison`. To make sure no new changes have been pushed to the repo, you can check out the commit I used when creating this. To do so, run the following command from inside the `AD_algorithm_comparison` folder.
 
-```
+```bash
 git reset --hard 1338e71
 ```
 
@@ -250,7 +253,8 @@ As with the previous SAS scripts, we also need to adjust the paths in the SAS sc
 
 For the file `AD_algorithm_comparison/1a. Extract self-response variables from RANDp _ 2018.01.17.sas`, change the beginning from 
 
-```
+```{sas}
+#| eval: false
 libname adams 'F:\power\HRS\ADAMS Wave A';
 libname atrk 'F:\power\HRS\ADAMS CrossWave';
 libname x 'F:\power\HRS\DerivedData\AD_Disparities_AlgorithmDev\Data 2018_0105'; /*derived hrs files*/
@@ -260,7 +264,8 @@ libname rand 'F:\power\HRS\RAND_HRS\sasdata';
 
 to
 
-```
+```{sas}
+#| eval: false
 libname adams 'path/to/root/folder/data/SAS/ADAMS';
 libname atrk 'path/to/root/folder/data/SAS/ADAMS';
 libname x 'path/to/root/folder/data/SAS/created';
@@ -273,17 +278,19 @@ and save the updated file as `updated_AD_algorithm_comparison/1a_extract_self_re
 ##### `AD_algorithm_comparison/1b.  Extract proxy variables from core HRS _ 2018.01.17.sas`
 
 For `AD_algorithm_comparison/1b.  Extract proxy variables from core HRS _ 2018.01.17.sas`, change the line 
-```
+```{sas}
+#| eval: false
 %include "F:\power\HRS\Projects\Ad_Disparities_AlgorithmDev\SAS Programs\Code_2018_0117\1a. Extract self-response variables from RANDp _ 2018.01.17.sas";
 ```
 to
-```
+```{sas}
+#| eval: false
 %include "/path/to/root/folder/updated_AD_algorithm_comparison/1a_extact_self_response_variables.sas";
 ```
 We also need to make sure we keep the Vice President variable that is [later used for Table 1](#table-1). At the very end of the script, you'll see this part:
 
-```
-
+```{sas}
+#| eval: false
 /************************************************************                                                                                                                      
 *                                                                                                                                                                                 
 * 5. Create master dataset with necessary variables, including derived dementia status incl proxy variables (H-W, LKW)
@@ -334,7 +341,6 @@ run;
 Anywhere in the list of variables, add the following: `vp_98 vp_00 vp_02 vp_04 vp_06 vp_08`. For example, make the last data step above the following (note the line with the `vp_*` variables after the `pres_**` variables):
 ```{sas}
 #| eval: false
-#| 
 data self_clean; set self (keep = hhid pn inw_00 inw_02 inw_04 inw_06 inw_08
                                                 male female black NH_black NH_white NH_other hispanic raceeth4 /*include raw race/ethnicity variables*/
                                                 midedu_hurd highedu_hurd lowedu_crim midedu_crim edu_hurd edu_crim
