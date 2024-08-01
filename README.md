@@ -889,826 +889,610 @@ A few things to note about the table below:
   1 to 5. Simply add 1 to the means, and we see that they match.
 
 ``` r
-table_1
+table_1 %>% gt::as_raw_html()
 ```
 
-<div id="pqhzhwhyyj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pqhzhwhyyj table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-&#10;#pqhzhwhyyj thead, #pqhzhwhyyj tbody, #pqhzhwhyyj tfoot, #pqhzhwhyyj tr, #pqhzhwhyyj td, #pqhzhwhyyj th {
-  border-style: none;
-}
-&#10;#pqhzhwhyyj p {
-  margin: 0;
-  padding: 0;
-}
-&#10;#pqhzhwhyyj .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-&#10;#pqhzhwhyyj .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-&#10;#pqhzhwhyyj .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-&#10;#pqhzhwhyyj .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-&#10;#pqhzhwhyyj .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-&#10;#pqhzhwhyyj .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-&#10;#pqhzhwhyyj .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-&#10;#pqhzhwhyyj .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-&#10;#pqhzhwhyyj .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-&#10;#pqhzhwhyyj .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 500;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-&#10;#pqhzhwhyyj .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 500;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-&#10;#pqhzhwhyyj .gt_from_md > :first-child {
-  margin-top: 0;
-}
-&#10;#pqhzhwhyyj .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-&#10;#pqhzhwhyyj .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-&#10;#pqhzhwhyyj .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-&#10;#pqhzhwhyyj .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-&#10;#pqhzhwhyyj .gt_row_group_first td {
-  border-top-width: 2px;
-}
-&#10;#pqhzhwhyyj .gt_row_group_first th {
-  border-top-width: 2px;
-}
-&#10;#pqhzhwhyyj .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-&#10;#pqhzhwhyyj .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-&#10;#pqhzhwhyyj .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-&#10;#pqhzhwhyyj .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-&#10;#pqhzhwhyyj .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-&#10;#pqhzhwhyyj .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-&#10;#pqhzhwhyyj .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-&#10;#pqhzhwhyyj .gt_left {
-  text-align: left;
-}
-&#10;#pqhzhwhyyj .gt_center {
-  text-align: center;
-}
-&#10;#pqhzhwhyyj .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-&#10;#pqhzhwhyyj .gt_font_normal {
-  font-weight: normal;
-}
-&#10;#pqhzhwhyyj .gt_font_bold {
-  font-weight: bold;
-}
-&#10;#pqhzhwhyyj .gt_font_italic {
-  font-style: italic;
-}
-&#10;#pqhzhwhyyj .gt_super {
-  font-size: 65%;
-}
-&#10;#pqhzhwhyyj .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-&#10;#pqhzhwhyyj .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-&#10;#pqhzhwhyyj .gt_indent_1 {
-  text-indent: 5px;
-}
-&#10;#pqhzhwhyyj .gt_indent_2 {
-  text-indent: 10px;
-}
-&#10;#pqhzhwhyyj .gt_indent_3 {
-  text-indent: 15px;
-}
-&#10;#pqhzhwhyyj .gt_indent_4 {
-  text-indent: 20px;
-}
-&#10;#pqhzhwhyyj .gt_indent_5 {
-  text-indent: 25px;
-}
-&#10;#pqhzhwhyyj .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-&#10;#pqhzhwhyyj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
+<div id="adxxvfgziv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
 
 <table class="gt_table" data-quarto-postprocess="true"
-style="table-layout: fixed;" data-quarto-disable-processing="false"
-data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_col_headings gt_spanner_row">
+style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; table-layout: fixed;"
+data-quarto-disable-processing="false" data-quarto-bootstrap="false"
+data-bgcolor="#FFFFFF">
+<thead style="border-style: none;">
+<tr class="header gt_col_headings gt_spanner_row"
+style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; border-bottom-style: hidden;">
 <th rowspan="2"
 id="&lt;div data-qmd-base64=&quot;KipPdXRjb21lcyBhbmQgUHJlZGljdG9ycyoq&quot;&gt;&lt;div class=&#39;gt_from_md&#39;&gt;&lt;p&gt;&lt;strong&gt;Outcomes and Predictors&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;"
 class="gt_col_heading gt_columns_bottom_border gt_left"
-data-quarto-table-cell-role="th" scope="col"><p><strong>Outcomes and
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: left; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden;"
+data-bgcolor="#FFFFFF" data-valign="bottom"><p><strong>Outcomes and
 Predictors</strong></p></th>
 <th colspan="2"
 id="&lt;div data-qmd-base64=&quot;KipNZWFuIChTRCkgb3IgTiAoJSkqKg==&quot;&gt;&lt;div class=&#39;gt_from_md&#39;&gt;&lt;p&gt;&lt;strong&gt;Mean (SD) or N (%)&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;"
 class="gt_center gt_columns_top_border gt_column_spanner_outer"
-data-quarto-table-cell-role="th" scope="colgroup"><span
-class="gt_column_spanner"></span>
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: center; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 0;"
+data-bgcolor="#FFFFFF"><span class="gt_column_spanner"
+style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%;"></span>
 <p><strong>Mean (SD) or N (%)</strong></p>
 </span></th>
 </tr>
-<tr class="odd gt_col_headings">
+<tr class="odd gt_col_headings"
+style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
 <th
 id="&lt;div data-qmd-base64=&quot;KipUcmFpbmluZyoqICAKTiA9IDc2MA==&quot;&gt;&lt;div class=&#39;gt_from_md&#39;&gt;&lt;p&gt;&lt;strong&gt;Training&lt;/strong&gt;&lt;br /&gt;
 N = 760&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;"
 class="gt_col_heading gt_columns_bottom_border gt_center"
-data-quarto-table-cell-role="th"
-scope="col"><p><strong>Training</strong><br />
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: center; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden;"
+data-bgcolor="#FFFFFF"
+data-valign="bottom"><p><strong>Training</strong><br />
 N = 760</p></th>
 <th
 id="&lt;div data-qmd-base64=&quot;KipWYWxpZGF0aW9uKiogIApOID0gNTE1&quot;&gt;&lt;div class=&#39;gt_from_md&#39;&gt;&lt;p&gt;&lt;strong&gt;Validation&lt;/strong&gt;&lt;br /&gt;
 N = 515&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;"
 class="gt_col_heading gt_columns_bottom_border gt_center"
-data-quarto-table-cell-role="th"
-scope="col"><p><strong>Validation</strong><br />
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: center; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden;"
+data-bgcolor="#FFFFFF"
+data-valign="bottom"><p><strong>Validation</strong><br />
 N = 515</p></th>
 </tr>
 </thead>
-<tbody class="gt_table_body">
-<tr class="odd gt_group_heading_row">
+<tbody class="gt_table_body"
+style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
+<tr class="odd gt_group_heading_row" style="border-style: none;">
 <td colspan="3" id="Dementia Outcomes" class="gt_group_heading"
-data-quarto-table-cell-role="th" scope="colgroup">Dementia Outcomes</td>
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: 500; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Dementia Outcomes</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left"
-headers="Dementia Outcomes  label">    Dementia ascertainment in wave
-A</td>
-<td class="gt_row gt_center" headers="Dementia Outcomes  stat_1">258
-(34%)</td>
-<td class="gt_row gt_center" headers="Dementia Outcomes  stat_2">71
-(14%)</td>
+<tr class="even gt_row_group_first" style="border-style: none;">
+<td class="gt_row gt_left" headers="Dementia Outcomes  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">    Dementia ascertainment in wave A</td>
+<td class="gt_row gt_center" headers="Dementia Outcomes  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">258 (34%)</td>
+<td class="gt_row gt_center" headers="Dementia Outcomes  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">71 (14%)</td>
 </tr>
-<tr class="odd gt_group_heading_row">
+<tr class="odd gt_group_heading_row" style="border-style: none;">
 <td colspan="3" id="Demographics" class="gt_group_heading"
-data-quarto-table-cell-role="th" scope="colgroup">Demographics</td>
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: 500; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Demographics</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left" headers="Demographics  label">    age at HRS
-interview: for wave A dementia prediction</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">80.3
-(7.0)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">81.2
-(5.8)</td>
+<tr class="even gt_row_group_first" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">    age at HRS interview: for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">80.3 (7.0)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">81.2 (5.8)</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Demographics  label">    proxy
-indicator for closest HRS interview completed prior to wave A</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">165
-(22%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">30
-(5.8%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    proxy indicator for closest HRS interview
+completed prior to wave A</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165 (22%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30 (5.8%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Demographics  label">    1=female,
-0=male</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">452
-(59%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">270
-(52%)</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    1=female, 0=male</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">452 (59%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">270 (52%)</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Demographics  label">    Hurd educ
-classification - 3 level, &lt;HS ref</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1"><br />
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    Hurd educ classification - 3 level, &lt;HS
+ref</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle"><br />
 </td>
-<td class="gt_row gt_center" headers="Demographics  stat_2"><br />
-</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Demographics  label">        0</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">369
-(49%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">215
-(42%)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Demographics  label">        1</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">298
-(39%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">222
-(43%)</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Demographics  label">        2</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">93
-(12%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">78
-(15%)</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Demographics  label">    0=NH white,
-1=NH black, 2=Hispanic, 3=NH other</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1"><br />
-</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2"><br />
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle"><br />
 </td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Demographics  label">        0</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">526
-(69%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">369
-(72%)</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        0</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">369 (49%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">215 (42%)</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Demographics  label">        1</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">140
-(18%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">97
-(19%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        1</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">298 (39%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">222 (43%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Demographics  label">        2</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">76
-(10%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">35
-(6.8%)</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        2</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">93 (12%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">78 (15%)</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Demographics  label">        3</td>
-<td class="gt_row gt_center" headers="Demographics  stat_1">18
-(2.4%)</td>
-<td class="gt_row gt_center" headers="Demographics  stat_2">14
-(2.7%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    0=NH white, 1=NH black, 2=Hispanic, 3=NH
+other</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle"><br />
+</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle"><br />
+</td>
 </tr>
-<tr class="even gt_group_heading_row">
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        0</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">526 (69%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">369 (72%)</td>
+</tr>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        1</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">140 (18%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">97 (19%)</td>
+</tr>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        2</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">76 (10%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">35 (6.8%)</td>
+</tr>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Demographics  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        3</td>
+<td class="gt_row gt_center" headers="Demographics  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">18 (2.4%)</td>
+<td class="gt_row gt_center" headers="Demographics  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">14 (2.7%)</td>
+</tr>
+<tr class="even gt_group_heading_row" style="border-style: none;">
 <td colspan="3" id="Cognition (self-response)" class="gt_group_heading"
-data-quarto-table-cell-role="th" scope="colgroup">Cognition
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: 500; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Cognition
 (self-response)</td>
 </tr>
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    immediate word recall
-(0-10): for wave A dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">3.9 (1.8)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">4.4 (1.6)</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    delayed word recall
-(0-1): for wave A dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">2.6 (2.1)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">3.0 (1.9)</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS serial7: for wave A
+<tr class="odd gt_row_group_first" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">    immediate word recall (0-10): for wave A
 dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">2.4 (1.9)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">2.8 (1.9)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">3.9 (1.8)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">4.4 (1.6)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS dates score (0-4):
-for wave A dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">3.4 (1.0)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">3.6 (0.7)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    delayed word recall (0-1): for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">2.6 (2.1)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">3.0 (1.9)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS cactus: for wave A
-dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">451 (76%)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">404 (83%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS serial7: for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">2.4 (1.9)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">2.8 (1.9)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS scissors: for wave A
-dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">587 (99%)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">478 (99%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS dates score (0-4): for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">3.4 (1.0)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">3.6 (0.7)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS president: for wave
-A dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">518 (87%)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">454 (94%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS cactus: for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">451 (76%)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">404 (83%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS vice president: for
-wave A dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">319 (54%)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">318 (66%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS scissors: for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">587 (99%)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">478 (99%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">    TICS backward count
-(1=correct attempt 1 or attempt 2): for wave A dementia prediction</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">503 (85%)</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">430 (89%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS president: for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">518 (87%)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">454 (94%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (self-response)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_1">165</td>
-<td class="gt_row gt_center"
-headers="Cognition (self-response)  stat_2">30</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
 </tr>
-<tr class="odd gt_group_heading_row">
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS vice president: for wave A dementia
+prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">319 (54%)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">318 (66%)</td>
+</tr>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
+</tr>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    TICS backward count (1=correct attempt 1 or
+attempt 2): for wave A dementia prediction</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">503 (85%)</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">430 (89%)</td>
+</tr>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (self-response)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">165</td>
+<td class="gt_row gt_center" headers="Cognition (self-response)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">30</td>
+</tr>
+<tr class="odd gt_group_heading_row" style="border-style: none;">
 <td colspan="3" id="Cognition (proxy)" class="gt_group_heading"
-data-quarto-table-cell-role="th" scope="colgroup">Cognition (proxy)</td>
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: 500; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Cognition (proxy)</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">    inteviewer assessment of cogn
-impairment (0-2): for wave A dementia prediction run</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"><br />
+<tr class="even gt_row_group_first" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">    inteviewer assessment of cogn impairment (0-2):
+for wave A dementia prediction run</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle"><br />
 </td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"><br />
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle"><br />
 </td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        0</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1">28
-(17%)</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2">13
-(43%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        0</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">28 (17%)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">13 (43%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        1</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1">25
-(15%)</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2">8
-(27%)</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        1</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">25 (15%)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">8 (27%)</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        2</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1">112
-(68%)</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2">9
-(30%)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        2</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">112 (68%)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">9 (30%)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_1">595</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_2">485</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">595</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">485</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Cognition (proxy)  label">    proxy
-memory score ctrd at 1 (0-4): for wave A dementia prediction run</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1">3.3
-(1.0)</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2">2.5
-(1.0)</td>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    proxy memory score ctrd at 1 (0-4): for wave A
+dementia prediction run</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">3.3 (1.0)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">2.5 (1.0)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_1">595</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_2">485</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">595</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">485</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">    IQCODE: for wave A dementia
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    IQCODE: for wave A dementia prediction run</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">4.2 (0.7)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">3.4 (0.5)</td>
+</tr>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">595</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">485</td>
+</tr>
+<tr class="odd" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    Jorm symptoms out of 5: for wave A dementia
 prediction run</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1">4.2
-(0.7)</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2">3.4
-(0.5)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">1.8 (1.5)</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">0.6 (1.0)</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_1">595</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_2">485</td>
+<tr class="even" style="border-style: none;">
+<td class="gt_row gt_left" headers="Cognition (proxy)  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">        Unknown</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">595</td>
+<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">485</td>
 </tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Cognition (proxy)  label">    Jorm
-symptoms out of 5: for wave A dementia prediction run</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_1">1.8
-(1.5)</td>
-<td class="gt_row gt_center" headers="Cognition (proxy)  stat_2">0.6
-(1.0)</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left"
-headers="Cognition (proxy)  label">        Unknown</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_1">595</td>
-<td class="gt_row gt_center"
-headers="Cognition (proxy)  stat_2">485</td>
-</tr>
-<tr class="odd gt_group_heading_row">
+<tr class="odd gt_group_heading_row" style="border-style: none;">
 <td colspan="3" id="Physical functioning limitations"
 class="gt_group_heading" data-quarto-table-cell-role="th"
-scope="colgroup">Physical functioning limitations</td>
+scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: 500; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Physical functioning
+limitations</td>
 </tr>
-<tr class="even gt_row_group_first">
+<tr class="even gt_row_group_first" style="border-style: none;">
 <td class="gt_row gt_left"
-headers="Physical functioning limitations  label">    total ADL
-limitations out of 5: for wave A dementia prediction</td>
+headers="Physical functioning limitations  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">    total ADL limitations out of 5: for wave A
+dementia prediction</td>
 <td class="gt_row gt_center"
-headers="Physical functioning limitations  stat_1">1.0 (1.5)</td>
+headers="Physical functioning limitations  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">1.0 (1.5)</td>
 <td class="gt_row gt_center"
-headers="Physical functioning limitations  stat_2">0.6 (1.1)</td>
+headers="Physical functioning limitations  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; border-top-width: 2px;"
+data-valign="middle">0.6 (1.1)</td>
 </tr>
-<tr class="odd">
+<tr class="odd" style="border-style: none;">
 <td class="gt_row gt_left"
-headers="Physical functioning limitations  label">    total IADL
-limitations out of 5: for wave A dementia prediction</td>
+headers="Physical functioning limitations  label"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">    total IADL limitations out of 5: for wave A
+dementia prediction</td>
 <td class="gt_row gt_center"
-headers="Physical functioning limitations  stat_1">1.2 (1.8)</td>
+headers="Physical functioning limitations  stat_1"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">1.2 (1.8)</td>
 <td class="gt_row gt_center"
-headers="Physical functioning limitations  stat_2">0.5 (1.1)</td>
+headers="Physical functioning limitations  stat_2"
+style="text-align: center; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">0.5 (1.1)</td>
 </tr>
 </tbody>
 </table>
