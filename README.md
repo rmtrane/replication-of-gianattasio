@@ -131,7 +131,11 @@ Settings -\> General -\> uncheck ‘Open “safe” files after downloading’.)
     to the page where the following zip file can be downloaded:
     - [DementiaPredictedProbabilities.zip](https://hrsdata.isr.umich.edu/data-file-download/5578)
 
-#### Unzip all files
+#### Unzip all files (`make unzip_all password=MYPASSWORD`)
+
+All the `hXXXX.zip` files are in pairs: `hXXda.zip` and `hXXsas.zip`.
+Unzip each pair, and move the resulting folders to
+`data/HRS-unzips/hXX`.
 
 For the `adams1X.zip` files, unzip them and move the resulting folders
 to `data/HRS-unzips`. In each of the folders, you will find additional
@@ -139,12 +143,8 @@ to `data/HRS-unzips`. In each of the folders, you will find additional
 Rename them to `da.zip` and `sas.zip`, respectively.
 
 For the `DementiaPredictedProbabilities.zip` and
-`randhrs_p_archive_SAS.zip` files, unzip them and move the content of
-the folders to `data/SAS/hurd` and `data/SAS/rand`, respectively.
-
-Finally, all the `hXXXX.zip` files are in pairs: `hXXda.zip` and
-`hXXsas.zip`. Unzip each pair, and move the resulting folders to
-`data/HRS-unzips/hXX`.
+`randhrs_p_archive_SAS.zip` files, unzip them and move to
+`data/HRS-unzips/hurd` and `data/HRS-unzips/rand`, respectively.
 
 When completed, you should have a folder structure similar to what is
 illustrated below. I’ve excluded the files in the `da` and `sas`
@@ -185,9 +185,8 @@ subfolders since there are a lot… We’ll get back to these soon.
     │   ├── da
     │   └── sas
     └── h98
-        ├── da
-        └── sas
-    data/SAS
+    │   ├── da
+    │   └── sas
     ├── hurd
     │   ├── DescriptionOfPredictedProbabilities.pdf
     │   ├── pdem_withvarnames.dta
@@ -200,19 +199,266 @@ subfolders since there are a lot… We’ll get back to these soon.
         ├── rndhrs_p.sas7bdat
         └── sasfmts.sas7bdat
 
-#### Update SAS scripts
+#### Update SAS scripts (`make .update_all_sas`)
 
-#### Run SAS scripts
+Ultimately, we need to run a bunch of SAS scripts that take `.da` files
+and create `.sas7bdat` files for later use. All the SAS files we need to
+run are in the `HRS-unzips/*/sas/` folders. Before we can run them, we
+need to update the some paths.
+
+Take, as an example, the file `data/HRS-unzips/h98/sas/h98a_r.sas`. This
+file is about 300 lines long, but the essence of the file is included
+below. It essentially extracts the data needed from the data file
+`data/HRS-unzips/h98/da/h98a_r.da`, and saves it to a new data set.
+
+    libname EXTRACT 'c:\hrs1998\sas\' ; 
+
+    DATA EXTRACT.H98A_R;
+    INFILE 'c:\hrs1998\data\H98A_R.DA'  LRECL=192; 
+
+    INPUT 
+      ... specify input columns...
+    ;
+
+
+    LABEL
+      ... variable labels...
+    ;
+
+    run;
+
+    DATA EXTRACT.H98A_R;
+    SET  EXTRACT.H98A_R;
+    FORMAT 
+      ... formatting of variables...
+    ;
+    run;
+
+To be able to run this SAS file, we need to fix the file paths. Set the
+`libname EXTRACT` to the folder `data/SAS/HRS/`, but include the full
+path. Also, fix the path to the input data file. In the end, the
+beginning of the file should look like this:
+
+    libname EXTRACT '/path/to/root/folder/data/SAS/HRS/';
+
+    DATA EXTRACT.H98A_R;
+    INFILE '/path/to/root/folder/data/HRS-unzips/h98/da/h98a_r.da' LRECL=192;
+
+The rest of the file remains unchanged. Save this file to a new folder
+`data/HRS-unzips/h98/new_sas`. Repeat with all SAS files in the
+`data/HRS-unzips/h*` folders.
+
+For the SAS files in `data/HRS-unzips/adams1*/sas`, change the libname
+paths to `/path/to/root/folder/data/SAS/ADAMS`.
+
+#### Run SAS scripts (`make .run_all_sas`)
+
+Once we have created updated SAS files, we need to run them all. Before
+doing so, make sure you’ve created the folders `data/SAS/HRS` and
+`data/SAS/ADAMS`.
+
+Once you’ve run all SAS files, you will have a total of 304 `.sas7bdat`
+files in `data/SAS/HRS` and 29 `.sas7bdat` files in `data/SAS/ADAMS`.
+
+#### Prepare RAND data (`make data/SAS/rand/formats.sas7bcat`)
+
+To prepare the RAND data, we copy `rndhrs_p.sas7bdat` and
+`sasfmts.sas7bdat` from `data/HRS-unzips/rand` to `data/SAS/rand`. We
+then create `data/SAS/rand/formats.sas7bcat` using the following SAS
+scripts:
+
+    libname library '/path/to/root/folder/data/SAS/rand';
+      proc format library=library cntlin=library.sasfmts;
+    run;
+
+#### Prepare HURD data (`make data/SAS/created/hurdprobabilities_wide.csv`)
+
+The probabilities included from
+`data/HRS-unzips/hurd/pdem_withvarnames.sas7bdat` need to be in a wide
+format for the SAS files from
+[`powerepilab/AD_algorithm_comparison`](https://github.com/powerepilab/AD_algorithm_comparison)
+to be able to use them. The R-script can be run from the root folder to
+create an appropriate .csv file.
+
+``` r
+library(tidyr)
+
+haven::read_sas('data/HRS-unzips/hurd/pdem_withvarnames.sas7bdat') %>% 
+  pivot_wider(
+    names_from = prediction_year, 
+    values_from = prob_dementia, 
+    names_prefix = 'hurd_prob_'
+  ) %>% 
+  readr::write_csv('data/SAS/created/hurdprobabilities_wide.csv', na = '.')
+```
+
+Note: the files from
+[`powerepilab/AD_algorithm_comparison`](https://github.com/powerepilab/AD_algorithm_comparison)
+rely on a dataset similar to the .csv file created here, but since my
+SAS skills a lacking a bit, I wasn’t able to create this in SAS.
+Instead, we will modify the SAS scripts later to read in the
+probabilities from this .csv file.
 
 ### Prepare SAS scripts to create training and validation data
 
-#### Download from [`powerepilab/AD_algorithm_comparison`](https://github.com/powerepilab/AD_algorithm_comparison)
+We now have all the data ready to create the training and validation
+data sets used in Gianattasio et al. (2019). Now, we will prepare the
+SAS scripts that will eventually create the two data sets.
 
-#### Adjust SAS scripts
+#### Download from [`powerepilab/AD_algorithm_comparison`](https://github.com/powerepilab/AD_algorithm_comparison) (`make AD_algorithm_comparison/touch`)
+
+Clone the github repo into a new folder in your root directory. Call
+this folder `AD_algorithm_comparison`. To make sure no new changes have
+been pushed to the repo, you can check out the commit I used when
+creating this. To do so, run the following command from inside the
+`AD_algorithm_comparison` folder.
+
+    git reset --hard 1338e71
+
+You should now see the following files in the folder
+`AD_algorithm_comparison`
+
+    AD_algorithm_comparison/
+    ├── 1a. Extract self-response variables from RANDp _ 2018.01.17.sas
+    ├── 1b. Extract proxy variables from core HRS _ 2018.01.17.sas
+    ├── 2. Create lags,leads, merge with ADAMS, set up regression vars _ 2018.01.17.sas
+    ├── 3. Assign algorithmic dementia diagnoses and create HRSt HRSv datasets_ 2018.03.02.sas
+    ├── Construct dataset of existing algorithm classifications for waves 2000-2014_2020_0110.sas
+    └── README.md
+
+#### Adjust SAS scripts (`make updated_AD_algorithm_comparison/touch`)
+
+As with the previous SAS scripts, we also need to adjust the paths in
+the SAS scripts just downloaded.
+
+For the file
+`AD_algorithm_comparison/1a. Extract self-response variables from RANDp _ 2018.01.17.sas`,
+change the beginning from
+
+    libname adams 'F:\power\HRS\ADAMS Wave A';
+    libname atrk 'F:\power\HRS\ADAMS CrossWave';
+    libname x 'F:\power\HRS\DerivedData\AD_Disparities_AlgorithmDev\Data 2018_0105'; /*derived hrs files*/
+    libname hrs 'F:\power\HRS\HRS data (raw)\SAS datasets'; /*raw hrs files, including Hurd probabilities*/
+    libname rand 'F:\power\HRS\RAND_HRS\sasdata';
+
+to
+
+    libname adams 'path/to/root/folder/data/SAS/ADAMS';
+    libname atrk 'path/to/root/folder/data/SAS/ADAMS';
+    libname x 'path/to/root/folder/data/SAS/created';
+    libname hrs 'path/to/root/folder/data/SAS/HRS';
+    libname rand 'path/to/root/folder/data/SAS/rand';
+
+and save the updated file as
+`updated_AD_algorithm_comparison/1a_extract_self_response_variables.sas`.
+
+For
+`AD_algorithm_comparison/1b.  Extract proxy variables from core HRS _ 2018.01.17.sas`,
+change the line
+
+    %include "F:\power\HRS\Projects\Ad_Disparities_AlgorithmDev\SAS Programs\Code_2018_0117\1a. Extract self-response variables from RANDp _ 2018.01.17.sas";
+
+to
+
+    %include "/path/to/root/folder/updated_AD_algorithm_comparison/1a_extact_self_response_variables.sas";
+
+We also need to make sure we keep the Vice President variable that is
+[later used for Table 1](#table-1). At the very end of the script,
+you’ll see this part:
+
+
+    /************************************************************                                                                                                                      
+    *                                                                                                                                                                                 
+    * 5. Create master dataset with necessary variables, including derived dementia status incl proxy variables (H-W, LKW)
+    *
+    *************************************************************                                                                                                                       
+
+    /*                                                                                                                                                                                 
+    Create clean version of "self" dataset (from 1a)
+            - for Hurd variables, need self-response cognition (dates, serial7, president iword, dword) and proxy-indicator back to 98
+            - for proxy cognition variables, need back to 98 for imputation purposes and merge with proxy
+    */
+
+    data self_clean; set self (keep = hhid pn inw_00 inw_02 inw_04 inw_06 inw_08
+                                                    male female black NH_black NH_white NH_other hispanic raceeth4 /*include raw race/ethnicity variables*/
+                                                    midedu_hurd highedu_hurd lowedu_crim midedu_crim edu_hurd edu_crim
+                                                    iweyr_00 iweyr_02 iweyr_04 iweyr_06 iweyr_08 iwemo_00 iwemo_02 iwemo_04 iwemo_06 iwemo_08
+                                                    hrs_age_00 hrs_age_02 hrs_age_04 hrs_age_06 hrs_age_08
+                                                    hrs_age70_00 hrs_age70_02 hrs_age70_04 hrs_age70_06 hrs_age70_08
+                                                    hagecat_00 hagecat_02 hagecat_04 hagecat_06 hagecat_08
+                                                    proxy_98 proxy_00 proxy_02 proxy_04 proxy_06 proxy_08
+                                                    tics13_00 tics13_02 tics13_04 tics13_06 tics13_08
+                                                    tics13sq_00 tics13sq_02 tics13sq_04 tics13sq_06 tics13sq_08
+                                                    iword_98 iword_00 iword_02 iword_04 iword_06 iword_08 iwordsq_00 iwordsq_02 iwordsq_04 iwordsq_06 iwordsq_08
+                                                    iwordch_00 iwordch_02 iwordch_04 iwordch_06 iwordch_08
+                                                    dword_98 dword_00 dword_02 dword_04 dword_06 dword_08 dword_m_00 dword_m_02 dword_m_04 dword_m_06 dword_m_08
+                                                    dwordch_00 dwordch_02 dwordch_04 dwordch_06 dwordch_08
+                                                    dates_98 dates_00 dates_02 dates_04 dates_06 dates_08 datesch_00 datesch_02 datesch_04 datesch_06 datesch_08
+                                                    ticscount_00 ticscount_02 ticscount_04 ticscount_06 ticscount_08
+                                                    ticscount1_98 ticscount1_00 ticscount1_02 ticscount1_04 ticscount1_06 ticscount1_08
+                                                    ticscount1ch_00 ticscount1ch_02 ticscount1ch_04 ticscount1ch_06 ticscount1ch_08
+                                                    ticscount1or2_98 ticscount1or2_00 ticscount1or2_02 ticscount1or2_04 ticscount1or2_06 ticscount1or2_08
+                                                    ticscount1or2ch_00 ticscount1or2ch_02 ticscount1or2ch_04 ticscount1or2ch_06 ticscount1or2ch_08
+                                                    serial7_98 serial7_00 serial7_02 serial7_04 serial7_06 serial7_08 serial7ch_00 serial7ch_02 serial7ch_04 serial7ch_06 serial7ch_08
+                                                    scis_00 scis_02 scis_04 scis_06 scis_08 scisch_00 scisch_02 scisch_04 scisch_06 scisch_08
+                                                    cact_00 cact_02 cact_04 cact_06 cact_08 cactch_00 cactch_02 cactch_04 cactch_06 cactch_08
+                                                    pres_98 pres_00 pres_02 pres_04 pres_06 pres_08 presch_00 presch_02 presch_04 presch_06 presch_08
+                                                    cogtot_98 cogtot_00 cogtot_02 cogtot_04 cogtot_06 cogtot_08
+                                                    cogsc27_98 cogsc27_00 cogsc27_02 cogsc27_04 cogsc27_06 cogsc27_08
+                                                    ticshrs_98 ticshrs_00 ticshrs_02 ticshrs_04 ticshrs_06 ticshrs_08 ticshrs_10
+                                                    dress_00 dress_02 dress_04 dress_06 dress_08 bath_00 bath_02 bath_04 bath_06 bath_08 eat_00 eat_02 eat_04 eat_06 eat_08
+                                                    money_00 money_02 money_04 money_06 money_08 phone_00 phone_02 phone_04 phone_06 phone_08
+                                                    adl5_00 adl5_02  adl5_04 adl5_06 adl5_08 adl5ch_00 adl5ch_02 adl5ch_02 adl5ch_04 adl5ch_06 adl5ch_08
+                                                    adl6_00 adl6_02  adl6_04 adl6_06 adl6_08 adl6ch_00 adl6ch_02 adl6ch_02 adl6ch_04 adl6ch_06 adl6ch_08
+                                                    iadl5_98 iadl5_00 iadl5_02 iadl5_04 iadl5_06 iadl5_08 iadl5ch_00 iadl5ch_02 iadl5ch_04 iadl5ch_06 iadl5ch_08);
+    run;
+
+Anywhere in the list of variables, add the following:
+`vp_98 vp_00 vp_02 vp_04 vp_06 vp_08`. For example, make the last data
+step above the following:
+
+``` sas
+data self_clean; set self (keep = hhid pn inw_00 inw_02 inw_04 inw_06 inw_08
+                                                male female black NH_black NH_white NH_other hispanic raceeth4 /*include raw race/ethnicity variables*/
+                                                midedu_hurd highedu_hurd lowedu_crim midedu_crim edu_hurd edu_crim
+                                                iweyr_00 iweyr_02 iweyr_04 iweyr_06 iweyr_08 iwemo_00 iwemo_02 iwemo_04 iwemo_06 iwemo_08
+                                                hrs_age_00 hrs_age_02 hrs_age_04 hrs_age_06 hrs_age_08
+                                                hrs_age70_00 hrs_age70_02 hrs_age70_04 hrs_age70_06 hrs_age70_08
+                                                hagecat_00 hagecat_02 hagecat_04 hagecat_06 hagecat_08
+                                                proxy_98 proxy_00 proxy_02 proxy_04 proxy_06 proxy_08
+                                                tics13_00 tics13_02 tics13_04 tics13_06 tics13_08
+                                                tics13sq_00 tics13sq_02 tics13sq_04 tics13sq_06 tics13sq_08
+                                                iword_98 iword_00 iword_02 iword_04 iword_06 iword_08 iwordsq_00 iwordsq_02 iwordsq_04 iwordsq_06 iwordsq_08
+                                                iwordch_00 iwordch_02 iwordch_04 iwordch_06 iwordch_08
+                                                dword_98 dword_00 dword_02 dword_04 dword_06 dword_08 dword_m_00 dword_m_02 dword_m_04 dword_m_06 dword_m_08
+                                                dwordch_00 dwordch_02 dwordch_04 dwordch_06 dwordch_08
+                                                dates_98 dates_00 dates_02 dates_04 dates_06 dates_08 datesch_00 datesch_02 datesch_04 datesch_06 datesch_08
+                                                ticscount_00 ticscount_02 ticscount_04 ticscount_06 ticscount_08
+                                                ticscount1_98 ticscount1_00 ticscount1_02 ticscount1_04 ticscount1_06 ticscount1_08
+                                                ticscount1ch_00 ticscount1ch_02 ticscount1ch_04 ticscount1ch_06 ticscount1ch_08
+                                                ticscount1or2_98 ticscount1or2_00 ticscount1or2_02 ticscount1or2_04 ticscount1or2_06 ticscount1or2_08
+                                                ticscount1or2ch_00 ticscount1or2ch_02 ticscount1or2ch_04 ticscount1or2ch_06 ticscount1or2ch_08
+                                                serial7_98 serial7_00 serial7_02 serial7_04 serial7_06 serial7_08 serial7ch_00 serial7ch_02 serial7ch_04 serial7ch_06 serial7ch_08
+                                                scis_00 scis_02 scis_04 scis_06 scis_08 scisch_00 scisch_02 scisch_04 scisch_06 scisch_08
+                                                cact_00 cact_02 cact_04 cact_06 cact_08 cactch_00 cactch_02 cactch_04 cactch_06 cactch_08
+                                                pres_98 pres_00 pres_02 pres_04 pres_06 pres_08 presch_00 presch_02 presch_04 presch_06 presch_08
+                                                **vp_98 vp_00 vp_02 vp_04 vp_06 vp_08**
+                                                cogtot_98 cogtot_00 cogtot_02 cogtot_04 cogtot_06 cogtot_08
+                                                cogsc27_98 cogsc27_00 cogsc27_02 cogsc27_04 cogsc27_06 cogsc27_08
+                                                ticshrs_98 ticshrs_00 ticshrs_02 ticshrs_04 ticshrs_06 ticshrs_08 ticshrs_10
+                                                dress_00 dress_02 dress_04 dress_06 dress_08 bath_00 bath_02 bath_04 bath_06 bath_08 eat_00 eat_02 eat_04 eat_06 eat_08
+                                                money_00 money_02 money_04 money_06 money_08 phone_00 phone_02 phone_04 phone_06 phone_08
+                                                adl5_00 adl5_02  adl5_04 adl5_06 adl5_08 adl5ch_00 adl5ch_02 adl5ch_02 adl5ch_04 adl5ch_06 adl5ch_08
+                                                adl6_00 adl6_02  adl6_04 adl6_06 adl6_08 adl6ch_00 adl6ch_02 adl6ch_02 adl6ch_04 adl6ch_06 adl6ch_08
+                                                iadl5_98 iadl5_00 iadl5_02 iadl5_04 iadl5_06 iadl5_08 iadl5ch_00 iadl5ch_02 iadl5ch_04 iadl5ch_06 iadl5ch_08);
+run;
+```
 
 ### Create training and validation data
 
 ## Checks
+
+### Table 1 (#table-1)
 
 To make sure everything worked as intended, we recreate Table 1 of
 Gianattasio et al. (2019).
@@ -460,20 +706,20 @@ tr.even {background-color: white;}
 table_1
 ```
 
-<div id="amkzepfarb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#amkzepfarb table {
+<div id="ztimnmtgrt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ztimnmtgrt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#amkzepfarb thead, #amkzepfarb tbody, #amkzepfarb tfoot, #amkzepfarb tr, #amkzepfarb td, #amkzepfarb th {
+&#10;#ztimnmtgrt thead, #ztimnmtgrt tbody, #ztimnmtgrt tfoot, #ztimnmtgrt tr, #ztimnmtgrt td, #ztimnmtgrt th {
   border-style: none;
 }
-&#10;#amkzepfarb p {
+&#10;#ztimnmtgrt p {
   margin: 0;
   padding: 0;
 }
-&#10;#amkzepfarb .gt_table {
+&#10;#ztimnmtgrt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -498,11 +744,11 @@ table_1
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_caption {
+&#10;#ztimnmtgrt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#amkzepfarb .gt_title {
+&#10;#ztimnmtgrt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -513,7 +759,7 @@ table_1
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#amkzepfarb .gt_subtitle {
+&#10;#ztimnmtgrt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -524,7 +770,7 @@ table_1
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#amkzepfarb .gt_heading {
+&#10;#ztimnmtgrt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -535,12 +781,12 @@ table_1
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_bottom_border {
+&#10;#ztimnmtgrt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_col_headings {
+&#10;#ztimnmtgrt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -554,7 +800,7 @@ table_1
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_col_heading {
+&#10;#ztimnmtgrt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -573,7 +819,7 @@ table_1
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#amkzepfarb .gt_column_spanner_outer {
+&#10;#ztimnmtgrt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -584,13 +830,13 @@ table_1
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#amkzepfarb .gt_column_spanner_outer:first-child {
+&#10;#ztimnmtgrt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#amkzepfarb .gt_column_spanner_outer:last-child {
+&#10;#ztimnmtgrt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#amkzepfarb .gt_column_spanner {
+&#10;#ztimnmtgrt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -601,10 +847,10 @@ table_1
   display: inline-block;
   width: 100%;
 }
-&#10;#amkzepfarb .gt_spanner_row {
+&#10;#ztimnmtgrt .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#amkzepfarb .gt_group_heading {
+&#10;#ztimnmtgrt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -629,7 +875,7 @@ table_1
   vertical-align: middle;
   text-align: left;
 }
-&#10;#amkzepfarb .gt_empty_group_heading {
+&#10;#ztimnmtgrt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -643,13 +889,13 @@ table_1
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#amkzepfarb .gt_from_md > :first-child {
+&#10;#ztimnmtgrt .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#amkzepfarb .gt_from_md > :last-child {
+&#10;#ztimnmtgrt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#amkzepfarb .gt_row {
+&#10;#ztimnmtgrt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -667,7 +913,7 @@ table_1
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#amkzepfarb .gt_stub {
+&#10;#ztimnmtgrt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -679,7 +925,7 @@ table_1
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#amkzepfarb .gt_stub_row_group {
+&#10;#ztimnmtgrt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -692,13 +938,13 @@ table_1
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#amkzepfarb .gt_row_group_first td {
+&#10;#ztimnmtgrt .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#amkzepfarb .gt_row_group_first th {
+&#10;#ztimnmtgrt .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#amkzepfarb .gt_summary_row {
+&#10;#ztimnmtgrt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -707,14 +953,14 @@ table_1
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#amkzepfarb .gt_first_summary_row {
+&#10;#ztimnmtgrt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_first_summary_row.thick {
+&#10;#ztimnmtgrt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#amkzepfarb .gt_last_summary_row {
+&#10;#ztimnmtgrt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -723,7 +969,7 @@ table_1
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_grand_summary_row {
+&#10;#ztimnmtgrt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -732,7 +978,7 @@ table_1
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#amkzepfarb .gt_first_grand_summary_row {
+&#10;#ztimnmtgrt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -741,7 +987,7 @@ table_1
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_last_grand_summary_row_top {
+&#10;#ztimnmtgrt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -750,10 +996,10 @@ table_1
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_striped {
+&#10;#ztimnmtgrt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#amkzepfarb .gt_table_body {
+&#10;#ztimnmtgrt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -761,7 +1007,7 @@ table_1
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_footnotes {
+&#10;#ztimnmtgrt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -774,7 +1020,7 @@ table_1
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_footnote {
+&#10;#ztimnmtgrt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -782,7 +1028,7 @@ table_1
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#amkzepfarb .gt_sourcenotes {
+&#10;#ztimnmtgrt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -795,64 +1041,64 @@ table_1
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#amkzepfarb .gt_sourcenote {
+&#10;#ztimnmtgrt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#amkzepfarb .gt_left {
+&#10;#ztimnmtgrt .gt_left {
   text-align: left;
 }
-&#10;#amkzepfarb .gt_center {
+&#10;#ztimnmtgrt .gt_center {
   text-align: center;
 }
-&#10;#amkzepfarb .gt_right {
+&#10;#ztimnmtgrt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#amkzepfarb .gt_font_normal {
+&#10;#ztimnmtgrt .gt_font_normal {
   font-weight: normal;
 }
-&#10;#amkzepfarb .gt_font_bold {
+&#10;#ztimnmtgrt .gt_font_bold {
   font-weight: bold;
 }
-&#10;#amkzepfarb .gt_font_italic {
+&#10;#ztimnmtgrt .gt_font_italic {
   font-style: italic;
 }
-&#10;#amkzepfarb .gt_super {
+&#10;#ztimnmtgrt .gt_super {
   font-size: 65%;
 }
-&#10;#amkzepfarb .gt_footnote_marks {
+&#10;#ztimnmtgrt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#amkzepfarb .gt_asterisk {
+&#10;#ztimnmtgrt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#amkzepfarb .gt_indent_1 {
+&#10;#ztimnmtgrt .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#amkzepfarb .gt_indent_2 {
+&#10;#ztimnmtgrt .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#amkzepfarb .gt_indent_3 {
+&#10;#ztimnmtgrt .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#amkzepfarb .gt_indent_4 {
+&#10;#ztimnmtgrt .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#amkzepfarb .gt_indent_5 {
+&#10;#ztimnmtgrt .gt_indent_5 {
   text-indent: 25px;
 }
-&#10;#amkzepfarb .katex-display {
+&#10;#ztimnmtgrt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
-&#10;#amkzepfarb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+&#10;#ztimnmtgrt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

@@ -168,10 +168,10 @@ data/SAS/created/hurdprobabilities_wide.csv: data/HRS-unzips/hurd/pdem_withvarna
 
 # Copy relevant RAND files, and Create formats for RAND file
 data/SAS/rand/formats.sas7bcat: data/HRS-unzips/rand/rndhrs_p.sas7bdat data/HRS-unzips/rand/sasfmts.sas7bdat
-	@mkdir -p data/SAS/rand
+	@mkdir -p data/SAS/rand; mkdir -p logs/rand
 	@cp $^ data/SAS/rand/.
 	@sed "s|ROOT|`pwd`|" scripts/SAS/RANDcreateFormats.sas > data/SAS/rand/createFormats.sas
-	@sas data/SAS/rand/createFormats.sas
+	@sas data/SAS/rand/createFormats.sas -log logs/rand
 
 
 ####################
