@@ -4,6 +4,8 @@ author: "Ralph Møller Trane"
 format: 
   gfm:
     output-file: README.md
+    toc: true
+    toc-depth: 5
 bibliography: references.bib
 editor_options: 
   chunk_output_type: console
@@ -152,12 +154,12 @@ DATA EXTRACT.H98A_R;
 INFILE 'c:\hrs1998\data\H98A_R.DA'  LRECL=192; 
 
 INPUT 
-  /% ... specify input columns... %/
+  /* ... specify input columns... */
 ;
 
 
 LABEL
-  /% ... variable labels... %/
+  /* ... variable labels... */
 ;
 
 run;
@@ -165,7 +167,7 @@ run;
 DATA EXTRACT.H98A_R;
 SET  EXTRACT.H98A_R;
 FORMAT 
-  /% ... formatting of variables... %/
+  /* ... formatting of variables... */
 ;
 run;
 
@@ -500,7 +502,7 @@ data/SAS/created/
 
 ## Checks
 
-### Table 1 (#table-1)
+### Table 1
 
 To make sure everything worked as intended, we recreate Table 1 of @gianattasioComparisonMethodsAlgorithmic2019. 
 
@@ -708,11 +710,7 @@ A few things to note about the table below:
 * There is a mistake in the label for the `delayed word recall` variable: this is in fact on a scale from 0 to 10, not 0 to 1. 
 * The proxy rated memory score is for some reason on a scale of 0 to 4, whereas in Table 1 of @gianattasioComparisonMethodsAlgorithmic2019 it is on a scale from 1 to 5. Simply add 1 to the means, and we see that they match.
 
-<style>
-tr.even {background-color: white;}
-</style>
-
 ```{r}
 #| output: asis
-table_1
+table_1 %>% as_raw_html()
 ```
