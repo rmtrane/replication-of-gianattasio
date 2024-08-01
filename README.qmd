@@ -5,50 +5,367 @@ format:
   gfm:
     output-file: README.md
 bibliography: references.bib
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Introduction
 
-This repo aims at replicating the results of @gianattasioComparisonMethodsAlgorithmic2019. The greater idea behind this is a desire to implement the algorithms in R for future research purposes, but in a way that is consistent with what has previously been done. Therefore, we create this pipeline with instructions to 
+This repo aims at replicating the results of @gianattasioComparisonMethodsAlgorithmic2019. The greater idea behind this is a desire to implement the algorithms in R for future research purposes, specifically validating the main findings from @gianattasioComparisonMethodsAlgorithmic2019 by way of analyzing WLS data. To that end, we want to ensure that our implementation of the algorithms are aligned with previous implementations. Therefore, we create this pipeline with instructions to recreate the training and validation datasets from @gianattasioComparisonMethodsAlgorithmic2019 that can serve to ensure the correctness of our implementations of algorithms.
 
-1. Download the needed files from the HRS website
-2. 
+## Requirments
 
-## Run
+This repo was developed for use on a linux machine with a working installation of R and SAS available. We provide a `Makefile` to easily recreate the training and validation datasets. The main pieces of software used are 
 
-Unzip all .zip files downloaded from HRS website. Will throw an error if any needed .zip files are missing. This unzips the files to the folder `data/HRS-unzips/`. 
+* `SAS` version 9.4 with analytical products
+    * `SAS/STAT 15.3`
+    * `SAS/ETS 15.3`
+    * `SAS/OR 15.3`
+    * `SAS/IML 15.3`
+    * `SAS/QC 15.3`
+* `R 4.4.0` with the following packages installed:
+    * `haven` version `2.5.4`
+    * `readr` version `2.1.5` 
+    * `tidyr` version `1.3.1` 
+    * Things will most likely also work with previous versions
+* `Make` version `4.2.1`
 
-```
-make unzip_all password="placeyourpasswordfromHRSforADAMSzipfileshere"
-```
+## Step-by-step guide
 
-Create a formats file for RAND data.
-
-```
-make data/SAS/rand/formats.sas7bcat
-```
-
-Update all sas files. This replaces file paths in the SAS files from the HRS and ADAMS SAS files downloaded from HRS website. The updated SAS files are placed in `data/HRS-unzips/{subdir}/new_sas` where `{subdir}` refers to the name of the .zip file that was unzipped.
-
-```
-make update_all_sas
-```
-
-Next, we run all the SAS files to create SAS data sets for use later. The created datasets are placed in the `data/SAS/{HRS,ADAMS}` folders.
+We will go through the creation of the validation and test datasets step-by-step below. However, to simply quickly and easily create the data files, you can clone this repo to your local machine, download the files mentioned below to the folder `data/HRS-zips`, then run `make all` from the root directory of this repo. Note that the zip-files with the ADAMS data are locked with a password. If running the code below locally, replace `MYPASSWORD` with the password provided by HRS when you requested access to the ADAMS data.
 
 ```
-make run_all_sas
+git clone https://github.com/rmtrane/replication-of-gianattasio.git ./
+
+cd replication-of-gianattasio/
+
+mkdir data/HRS-zips # put downloaded .zip files here
+
+make all password=MYPASSWORD
 ```
 
-Now, we need to download the SAS scripts used by @gianattasioComparisonMethodsAlgorithmic2019. The next command clones [their GitHub repo](https://www.github.com/powerepilab/AD_algorithm_comparison) and checks out the commit that was used for this work. (As of the creation of this, the most recent commit is the used commit, but in case of any future changes, we fix the used commit.)
+### Prepare the data from HRS
+
+#### Download appropriate files
+
+The following .zip files should be downloaded from the [HRS Data Downloads site](https://hrsdata.isr.umich.edu/data-products/) and placed in the `data/HRS-zips` folder. We include links to data pages with details for each set of files, and also direct links for download (file names formatted as `file.zip` will take you straight to download the given file). A login is needed to download the data.
+
+Note: make sure your browser does not automatically open files when downloaded. If .zip files are automatically opened, they will be unzipped, and not fit the patterns expected. (On Safari on macOS: got Settings -> General -> uncheck 'Open "safe" files after downloading'.)
+
+* HRS Survey Data:
+  - [1998 HRS Core](https://hrsdata.isr.umich.edu/data-products/1998-hrs-core): [`h98da.zip`](https://hrsdata.isr.umich.edu/data-file-download/5515) and [`h98sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/5625)
+  - [2000 HRS Core](https://hrsdata.isr.umich.edu/data-products/2000-hrs-core): [`h00da.zip`](https://hrsdata.isr.umich.edu/data-file-download/5508) and [`h00sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/5640)
+  - [2002 HRS Core](https://hrsdata.isr.umich.edu/data-products/2002-hrs-core): [`h02da.zip`](https://hrsdata.isr.umich.edu/data-file-download/5506) and [`h02sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/5637)
+  - [2004 HRS Core](https://hrsdata.isr.umich.edu/data-products/2004-hrs-core): [`h04da.zip`](https://hrsdata.isr.umich.edu/data-file-download/5516) and [`h04sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/5645)
+  - [2006 HRS Core](https://hrsdata.isr.umich.edu/data-products/2006-hrs-core): [`h06da.zip`](https://hrsdata.isr.umich.edu/data-file-download/9480) and [`h06sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/9483)
+  - [2008 HRS Core](https://hrsdata.isr.umich.edu/data-products/2008-hrs-core): [`h08da.zip`](https://hrsdata.isr.umich.edu/data-file-download/5510) and [`h08sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/5652)
+  - [2010 HRS Core](https://hrsdata.isr.umich.edu/data-products/2010-hrs-core): [`h10da.zip`](https://hrsdata.isr.umich.edu/data-file-download/9464) and [`h10sas.zip`](https://hrsdata.isr.umich.edu/data-file-download/9466)
+
+* RAND HRS Data:
+  - We need an older version of the RAND data, the so-called Version P. This can be found under [archived data versions](https://hrsdata.isr.umich.edu/data-products/rand-hrs-archived-data-products).<br>
+    The file needed: 
+        - RAND HRS Version P [`randhrsp_archive_SAS.zip`](https://hrsdata.isr.umich.edu/data-file-download/5414)
+
+* ADAMS Data:
+  - From the main HRS Data Downloads page, navigate to [HRS Sensitive Health Data](https://hrsdata.isr.umich.edu/data-products/sensitive-health). Note: additional permissions are needed to access this part of the data.<br>
+    The files to be downloaded are:
+      - [Wave A](https://hrsdata.isr.umich.edu/data-products/aging-demographics-and-memory-study-adams-wave): [adams1a.zip](https://hrsdata.isr.umich.edu/data-file-download/5539)
+      - [Wave B](https://hrsdata.isr.umich.edu/data-products/aging-demographics-and-memory-study-adams-wave-b): [adams1b.zip](https://hrsdata.isr.umich.edu/data-file-download/5616)
+      - [CrossWave](https://hrsdata.isr.umich.edu/data-products/aging-demographics-and-memory-study-adams-cross-wave-tracker-file): [adams1trk.zip](https://hrsdata.isr.umich.edu/data-file-download/5570) 
+      
+* Hurd Probabilities:
+  - These are provided as a "Contributed Project" on the HRS website; follow [this direct link](https://hrsdata.isr.umich.edu/data-products/dementia-predicted-probabilities-files) to the page where the following zip file can be downloaded:
+    - [DementiaPredictedProbabilities.zip](https://hrsdata.isr.umich.edu/data-file-download/5578)
+
+#### Unzip all files
+
+For the `adams1X.zip` files, unzip them and move the resulting folders to `data/HRS-unzips`. In each of the folders, you will find additional `.zip` files. Unzip the two called `adams1Xda.zip` and `adams1Xsas.zip`. Rename them to `da.zip` and `sas.zip`, respectively. 
+
+For the `DementiaPredictedProbabilities.zip` and `randhrs_p_archive_SAS.zip` files, unzip them and move the content of the folders to `data/SAS/hurd` and `data/SAS/rand`, respectively. 
+
+Finally, all the `hXXXX.zip` files are in pairs: `hXXda.zip` and `hXXsas.zip`. Unzip each pair, and move the resulting folders to `data/HRS-unzips/hXX`. 
+
+When completed, you should have a folder structure similar to what is illustrated below. I've excluded the files in the `da` and `sas` subfolders since there are a lot... We'll get back to these soon.
 
 ```
-make AD_algorithm_comparison
+data/HRS-unzips
+├── a95
+│   ├── da
+│   └── sas
+├── adams1a
+│   ├── da
+│   └── sas
+├── adams1b
+│   ├── da
+│   └── sas
+├── adams1trk
+│   ├── da
+│   └── sas
+├── h00
+│   ├── da
+│   └── sas
+├── h02
+│   ├── da
+│   └── sas
+├── h04
+│   ├── da
+│   └── sas
+├── h06
+│   ├── da
+│   └── sas
+├── h08
+│   ├── da
+│   └── sas
+├── h10
+│   ├── da
+│   └── sas
+├── h96
+│   ├── da
+│   └── sas
+└── h98
+    ├── da
+    └── sas
+data/SAS
+├── hurd
+│   ├── DescriptionOfPredictedProbabilities.pdf
+│   ├── pdem_withvarnames.dta
+│   └── pdem_withvarnames.sas7bdat
+└── rand
+    ├── ArchiveREADME.pdf
+    ├── incwlth_p.sas7bdat
+    ├── randhrs_P.pdf
+    ├── randiwp.pdf
+    ├── rndhrs_p.sas7bdat
+    └── sasfmts.sas7bdat
 ```
 
-The filepaths in the just downloaded SAS scripts need to be updated as well. 
+#### Update SAS scripts
 
-```
-make update_AD_algorithm_comparison
+
+
+#### Run SAS scripts
+
+### Prepare SAS scripts to create training and validation data
+
+#### Download from [`powerepilab/AD_algorithm_comparison`](https://github.com/powerepilab/AD_algorithm_comparison)
+
+#### Adjust SAS scripts
+
+### Create training and validation data
+
+## Checks
+
+To make sure everything worked as intended, we recreate Table 1 of @gianattasioComparisonMethodsAlgorithmic2019. 
+
+<details>
+
+<summary>R code for recreating Table 1</summary>
+
+First, the used libraries and reading in the data that was created from the SAS.
+
+```{r}
+library(tidyverse)
+library(gt)
+library(gtsummary)
+
+hrs_training <- haven::read_sas(here::here("data/SAS/created/hrst_2018_0302.sas7bdat"))
+hrs_validation <- haven::read_sas(here::here("data/SAS/created/hrsv_2018_0302.sas7bdat"))
+
+master_ad <- haven::read_sas(here::here("data/SAS/created/master_ad_2018_0117.sas7bdat"))
 ```
 
+Lots of the predictors are not present in the `hrs_training` and `hrs_validation` data, but rather included in the `master_ad` data. So, we add the predictors to the data sets. 
+
+For the training data, this is straightforward, since all training data is from the ADAMS Wave A data set.
+
+```{r}
+hrs_training <- left_join(
+    hrs_training,
+    master_ad %>% 
+      select(
+        HHID, 
+        PN, 
+        iadl = iadl5_A,
+        adl = adl5_A,
+        iqcode = iqcode_A,
+        jorm_symptoms = jorm5symp_A,
+        pr_memsc = pr_memsc1_A,
+        iwercog = iwercog_A,
+        immediate_word_recall = iword_A,
+        delayed_word_recall = dword_A,
+        serial7 = serial7_A,
+        dates = dates_A,
+        cactus = cact_A,
+        scissors = scis_A,
+        president = pres_A,
+        vp = vp_A,
+        count = ticscount1or2_A
+      )
+  ) %>% 
+    mutate(dataset = 'Training')
+```
+
+For the validation data, it is a bit more complicated. Here, we need to pull the correct ADAMS wave for each row of the validation data. 
+
+```{r}
+hrs_validation <- hrs_validation %>% 
+  left_join(
+    master_ad %>% 
+      select(
+        HHID, 
+        PN, 
+        matches("^iadl5_[BCD]$"),
+        matches("^adl5_[BCD]$"),
+        matches("^iqcode_[BCD]$"),
+        matches("^jorm5symp_[BCD]$"),
+        matches("^pr_memsc1_[BCD]$"),
+        matches("^iwercog_[BCD]$"),
+        matches("^iword_[BCD]$"),
+        matches("^dword_[BCD]$"),
+        matches("^serial7_[BCD]$"),
+        matches("^dates_[BCD]$"),
+        matches("^cact_[BCD]$"),
+        matches("^scis_[BCD]$"),
+        matches("^pres_[BCD]$"),
+        matches("^vp_[BCD]$"),
+        matches("^ticscount1or2_[BCD]$")
+      ) %>% 
+      rename_with(
+        .fn = \(x) str_remove(x, '_'),
+        .cols = matches("^pr_memsc1_[BCD]$")
+      ) %>% 
+      pivot_longer(
+        cols = matches("_[BCD]$"),
+        names_to = c(".value", "ADAMSwave"),
+        names_sep = "_",
+      ) %>% 
+      rename(
+        iadl = iadl5,
+        adl = adl5,
+        jorm_symptoms = jorm5symp,
+        pr_memsc = prmemsc1,
+        immediate_word_recall = iword,
+        delayed_word_recall = dword,
+        cactus = cact,
+        scissors = scis,
+        president = pres,
+        count = ticscount1or2
+      ) %>% 
+      mutate(
+        ADAMSwave = str_to_lower(ADAMSwave)
+      )
+  ) %>% 
+  mutate(
+    dataset = 'Validation'
+  )
+```
+
+Finally, we recreate Table 1.
+
+```{r}
+## We use sjmisc::add_rows to preserve column labels. (dplyr::bind_rows removes labels.)
+table_1 <- sjmisc::add_rows(
+  hrs_training,
+  hrs_validation
+) %>% 
+  select(
+    dement,
+    hrs_age,
+    proxy,
+    female,
+    edu_hurd,
+    raceeth4,
+    immediate_word_recall,
+    delayed_word_recall,
+    serial7,
+    dates,
+    cactus,
+    scissors,
+    president,
+    vp,
+    count,
+    iwercog,
+    pr_memsc,
+    iqcode,
+    jorm_symptoms,
+    adl, 
+    iadl,
+    dataset
+  ) %>% 
+  mutate(
+    ## Replace self-response for proxy that are 0 with NA
+    immediate_word_recall = if_else(proxy == 0, immediate_word_recall, NA),
+    delayed_word_recall = if_else(proxy == 0, delayed_word_recall, NA),
+  ) %>% 
+  gtsummary::tbl_summary(
+    by = 'dataset',
+    statistic = list(all_continuous() ~ "{mean} ({sd})", all_categorical() ~ "{n} ({p}%)"),
+    type = list(
+      adl = 'continuous',
+      iadl = "continuous",
+      jorm_symptoms = "continuous",
+      pr_memsc = "continuous",
+      serial7 = 'continuous',
+      dates = 'continuous'
+    ),
+    digits = list(
+      all_continuous() ~ 1
+    )
+  ) %>% 
+  modify_header(
+    label ~ "**Outcomes and Predictors**"
+  ) %>% 
+  modify_footnote(
+    all_stat_cols() ~ NA
+  ) %>% 
+  modify_spanning_header(
+    c(stat_1, stat_2) ~ "**Mean (SD) or N (%)**"
+  ) %>% 
+  modify_table_body(
+    mutate,
+    groupname_col = case_match(
+      variable,
+      'dement' ~ 'Dementia Outcomes',
+      c("hrs_age", "proxy", "female", "edu_hurd", "raceeth4") ~ 'Demographics',
+      c('immediate_word_recall', 'delayed_word_recall', 'serial7', 
+        'dates', 'cactus', 'scissors', 'president', 'vp', 'count') ~ 'Cognition (self-response)',
+      c("iwercog", "pr_memsc", "iqcode", "jorm_symptoms") ~ 'Cognition (proxy)',
+      c('adl', 'iadl') ~ 'Physical functioning limitations'
+    )
+  ) %>% 
+  modify_column_indent(
+    columns = label,
+    rows = row_type %in% 'label',
+    indent = 4L
+  ) %>% 
+  modify_column_indent(
+    columns = label,
+    rows = !row_type %in% 'label',
+    indent = 8L
+  ) %>% 
+  as_gt() %>%
+  cols_width(
+    label ~ px(550)
+  ) %>% 
+  tab_options(
+    row_group.font.weight = "500",
+    row_group.background.color = 'white'
+  ) 
+```
+
+</details>
+
+A few things to note about the table below:
+
+* Some rows indicate that there are a number of "unknown" (or missing) values. For the variables in the "Cognition (self-response)" group, those who were evaluated by proxy are excluded. Therefore, unknown = number of proxy cases. For "Cognition (proxy)", unknown = number of NOT proxy cases. 
+* There is a mistake in the label for the `delayed word recall` variable: this is in fact on a scale from 0 to 10, not 0 to 1. 
+* The proxy rated memory score is for some reason on a scale of 0 to 4, whereas in Table 1 of @gianattasioComparisonMethodsAlgorithmic2019 it is on a scale from 1 to 5. Simply add 1 to the means, and we see that they match.
+
+<style>
+tr.even {background-color: white;}
+</style>
+
+```{r}
+#| output: asis
+table_1
+```
